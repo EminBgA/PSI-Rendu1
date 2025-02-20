@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,11 +17,13 @@ namespace GrapheAssociation
         private Noeud[] listeNoeuds;
         private List<Lien> listeLiens;
         private int[,] matriceAdjacence;
+        private int numNoeuds;
 
         public Graphe(int numNoeuds)
         {
             listeNoeuds = new Noeud[numNoeuds];
             listeLiens = new List<Lien>();
+            this.numNoeuds = numNoeuds;
         }
 
         public void AjouterNoeud(int id)
@@ -103,6 +106,93 @@ namespace GrapheAssociation
                 }
                 Console.WriteLine();
             }
+        }
+
+        //public Dictionary<int, List<int>> ListeAdjacence = new Dictionary<int, List<int>>();
+        
+        
+        // Ajoute une connexion entre deux sommets
+        
+
+        // Parcours en Largeur (BFS)
+        public void ParcoursLargeur(int sommetInitial)
+        {
+            // Création d'une file pour gérer l'ordre de visite
+            bool[] visites = new bool[numNoeuds];
+            // Un ensemble pour suivre les sommets visités
+            List<int> file = new List<int>();
+
+            // Ajouter le sommet initial à la file
+            file.Add(sommetInitial);
+            visites[sommetInitial] = true;
+
+            Console.WriteLine("Parcours en Largeur (BFS) :");
+
+            while (file.Count > 0)
+            {
+                int sommetCourant = file[0];
+                file.RemoveAt(0);
+                Console.Write(sommetCourant + " ");
+
+                // Ajouter les voisins non visités du sommet courant dans la file
+                
+                for (int i = 0; i < listeNoeuds[sommetCourant].GetVoisins().Count; i++)
+                {
+                    Noeud voisin = listeNoeuds[sommetCourant].GetVoisins()[i];
+                    if (!visites[voisin.GetID()])
+                    {
+                        file.Add(voisin.GetID());
+                        visites[voisin.GetID()] = true;
+                    }
+                }
+            }
+            Console.WriteLine();
+        }
+
+        public void ParcoursProfondeur(int sommetInitial)
+        {
+            bool[] visites = new bool[numNoeuds + 1];
+
+            // Liste pour gérer les sommets à visiter (similaire à une pile)
+            List<int> file = new List<int>();
+
+            // Ajouter le sommet initial à la pile
+            file.Add(sommetInitial);
+            visites[sommetInitial] = true;
+
+            Console.WriteLine("Parcours en Profondeur (DFS) :");
+
+            // Tant que la pile n'est pas vide
+            while (file.Count > 0)
+            {
+                // Retirer le sommet du haut de la pile
+                int sommetCourant = file[file.Count - 1];
+                file.RemoveAt(file.Count - 1);
+
+                Console.Write(sommetCourant + " ");
+
+                // Explorer les voisins du sommet actuel    
+                /*foreach (var voisin in ListeAdjacence[sommetCourant])
+                {
+                    if (!visites[voisin])
+                    {
+                        // Ajouter le voisin non visité à la pile
+                        pile.Add(voisin);
+                        visites[voisin] = true;
+                    }
+                }*/
+                for (int i = 0; i < listeNoeuds[sommetCourant].GetVoisins().Count; i++)
+                {
+                    Noeud voisin = listeNoeuds[sommetCourant].GetVoisins()[i];
+                    if (!visites[voisin.GetID()])
+                    {
+                        file.Add(voisin.GetID());
+                        visites[voisin.GetID()] = true;
+                    }
+                }
+            }
+
+            Console.WriteLine();
         }
     }
 }

@@ -36,6 +36,9 @@ namespace GrapheAssociation
             graphe.ConstruireMatriceAdjacence();
             graphe.AfficherMatriceAdjacence();
 
+            graphe.ParcoursLargeur(1);
+            graphe.ParcoursProfondeur(1);
+
         }
 
         static List<int[]> LireFichierMTX(string filePath)
