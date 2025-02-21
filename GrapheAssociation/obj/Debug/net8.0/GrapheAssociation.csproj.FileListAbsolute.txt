@@ -13,3 +13,11 @@ C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\obj\Debug\
 C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\obj\Debug\net8.0\GrapheAssociation.pdb
 C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\obj\Debug\net8.0\GrapheAssociation.genruntimeconfig.cache
 C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\obj\Debug\net8.0\ref\GrapheAssociation.dll
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\bin\Debug\net8.0\SkiaSharp.dll
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\bin\Debug\net8.0\SkiaSharp.Views.Desktop.Common.dll
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\bin\Debug\net8.0\runtimes\osx\native\libSkiaSharp.dylib
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\bin\Debug\net8.0\runtimes\win-arm64\native\libSkiaSharp.dll
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\bin\Debug\net8.0\runtimes\win-x64\native\libSkiaSharp.dll
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\bin\Debug\net8.0\runtimes\win-x86\native\libSkiaSharp.dll
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\obj\Debug\net8.0\GrapheAssociation.csproj.AssemblyReference.cache
+C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\obj\Debug\net8.0\GrapheAs.AE7950F1.Up2Date

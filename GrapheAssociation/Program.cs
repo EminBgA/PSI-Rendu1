@@ -41,6 +41,10 @@ namespace GrapheAssociation
             Console.WriteLine(graphe.EstConnexe());
             Console.WriteLine(graphe.ContientCycle());
 
+            filePath = Path.Combine(chemin, @"graphe.png");
+            graphe.DessinerGraphe(filePath);
+            FileStream file = File.Open(filePath, FileMode.Open, FileAccess.Write, FileShare.None);
+            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
         }
 
         static List<int[]> LireFichierMTX(string filePath)

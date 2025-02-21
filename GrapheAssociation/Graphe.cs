@@ -5,6 +5,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
+using SkiaSharp;
+using SkiaSharp.Views.Desktop;
+
 namespace GrapheAssociation
 {
     public class Graphe
@@ -18,6 +21,10 @@ namespace GrapheAssociation
         private List<Lien> listeLiens;
         private int[,] matriceAdjacence;
         private int numNoeuds;
+
+
+        private Dictionary<int, List<int>> ListeAdjacence;
+        private Dictionary<int, SKPoint> positions;
 
         public Graphe(int numNoeuds)
         {
@@ -257,6 +264,79 @@ namespace GrapheAssociation
 
             return false;
         }
+
+        public void DessinerGraphe(string filename)
+        {
+            int width = 2000;
+            int height = 2000;
+            positions = CalculerPosition(width, height);
+
+            using (var bitmap = new SKBitmap(width, height))
+            using (var canvas = new SKCanvas(bitmap))
+            using (var paintEdge = new SKPaint { Color = SKColors.Black, StrokeWidth = 3 })
+            using (var paintNode = new SKPaint { Color = SKColors.Blue, IsAntialias = true })
+            using (var paintText = new SKPaint { Color = SKColors.Red, TextSize = 40, IsAntialias = true })
+            {
+                canvas.Clear(SKColors.White);
+
+                for (int i = 1; i < listeNoeuds.Length; i++)
+                {
+                    for (int j = 0; j < listeNoeuds[i].GetVoisins().Count; j++)
+                    {
+                        if (listeNoeuds[i].GetID() < listeNoeuds[i].GetVoisins()[j].GetID())
+                        {
+                            canvas.DrawLine(positions[listeNoeuds[i].GetID()], positions[listeNoeuds[i].GetVoisins()[j].GetID()], paintEdge);
+                        }
+                    }
+
+                }
+
+                foreach (var node in positions)
+                {
+                    SKPoint pos = node.Value;
+                    canvas.DrawCircle(pos, 40, paintNode);
+                    canvas.DrawText(node.Key.ToString(), pos.X - 12, pos.Y + 7, paintText);
+                }
+
+                using (var image = SKImage.FromBitmap(bitmap))
+                using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
+                using (var stream = File.OpenWrite(filename))
+                {
+                    data.SaveTo(stream);
+                }
+
+            }
+        }
+        public Dictionary<int, SKPoint> CalculerPosition(int width, int height)
+        {
+            Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
+            int n = numNoeuds + 1;
+            double angleStep = 2 * Math.PI / Math.Max(n, 1);
+            int centerX = width / 2, centerY = height / 2, radius = 700;
+
+            //int i = 0;
+
+            for (int i = 1; i < listeNoeuds.Length; i++)
+            {
+                int sommet = listeNoeuds[i].GetID();
+                float x = centerX + (float)(radius * Math.Cos(i * angleStep));
+                float y = centerY + (float)(radius * Math.Sin(i * angleStep));
+                positions[sommet] = new SKPoint(x, y);
+            }
+            /*
+            foreach (var sommet in ListeAdjacence.Keys)
+            {
+                float x = centerX + (float)(radius * Math.Cos(i * angleStep));
+                float y = centerY + (float)(radius * Math.Sin(i * angleStep));
+                positions[sommet] = new SKPoint(x, y);
+                i++;
+            }
+            */
+            return positions;
+        }
+
+        
+
 
     }
 }

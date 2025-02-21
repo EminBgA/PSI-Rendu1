@@ -47,9 +47,10 @@
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Downloads\\Association-soc-karate\\soc-karate.mtx",
               "ToolTip": "C:\\Users\\eminb\\Downloads\\Association-soc-karate\\soc-karate.mtx",
               "RelativeToolTip": "..\\..\\..\\..\\..\\Downloads\\Association-soc-karate\\soc-karate.mtx",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAABBwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001794|",
-              "WhenOpened": "2025-02-20T15:26:23.406Z"
+              "WhenOpened": "2025-02-20T15:26:23.406Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -57,9 +58,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\eminb\\OneDrive\\Documents\\GitHub\\PSI-Rendu1\\GrapheAssociation\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\eminb\\OneDrive\\Documents\\GitHub\\PSI-Rendu1\\GrapheAssociation\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCwAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\eminb\\OneDrive\\Documents\\GitHub\\PSI-Rendu1\\GrapheAssociation\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwC4AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-20T15:20:11.041Z",
               "EditorCaption": ""
@@ -74,7 +75,8 @@
               "RelativeToolTip": "Noeud.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAYwB4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T15:22:51.388Z"
+              "WhenOpened": "2025-02-20T15:22:51.388Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -84,9 +86,10 @@
               "RelativeDocumentMoniker": "Lien.cs",
               "ToolTip": "C:\\Users\\eminb\\OneDrive\\Documents\\GitHub\\PSI-Rendu1\\GrapheAssociation\\Lien.cs",
               "RelativeToolTip": "Lien.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwCIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T15:26:50.216Z"
+              "WhenOpened": "2025-02-20T15:26:50.216Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -96,7 +99,7 @@
               "RelativeDocumentMoniker": "Graphe.cs",
               "ToolTip": "C:\\Users\\eminb\\OneDrive\\Documents\\GitHub\\PSI-Rendu1\\GrapheAssociation\\Graphe.cs",
               "RelativeToolTip": "Graphe.cs",
-              "ViewState": "AgIAAN8AAAAAAAAAAAAmwPMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAowAkBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-20T15:28:51.081Z",
               "EditorCaption": ""
