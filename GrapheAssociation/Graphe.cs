@@ -115,7 +115,7 @@ namespace GrapheAssociation
         
 
         // Parcours en Largeur (BFS)
-        public void ParcoursLargeur(int sommetInitial)
+        public bool[] ParcoursLargeur(int sommetInitial)
         {
             // Création d'une file pour gérer l'ordre de visite
             bool[] visites = new bool[numNoeuds];
@@ -147,9 +147,10 @@ namespace GrapheAssociation
                 }
             }
             Console.WriteLine();
+            return visites;
         }
 
-        public void ParcoursProfondeur(int sommetInitial)
+        public bool[] ParcoursProfondeur(int sommetInitial)
         {
             bool[] visites = new bool[numNoeuds + 1];
 
@@ -193,6 +194,69 @@ namespace GrapheAssociation
             }
 
             Console.WriteLine();
+            return visites;
         }
+
+        public bool EstConnexe()
+        {
+            // Tableau pour suivre les sommets visités
+            bool[] visites = new bool[numNoeuds];
+
+            // Lancer le parcours en largeur depuis le sommet 0
+            visites = ParcoursProfondeur(1);
+
+            // Vérifier si tous les sommets ont été visités
+            for (int i = 1; i < numNoeuds; i++)
+            {
+                if (!visites[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool ContientCycle()
+        {
+            bool[] visites = new bool[numNoeuds];
+
+            // Vérifie chaque composante connexe du graphe
+            for (int i = 1; i < numNoeuds; i++)
+            {
+                if (!visites[i])
+                {
+                    if (DetecterCycleDFS(i, -1, visites))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool DetecterCycleDFS(int sommet, int parent, bool[] visites)
+        {
+            visites[sommet] = true;
+
+            foreach (Noeud voisin in listeNoeuds[sommet].GetVoisins())
+            {
+                int idVoisin = voisin.GetID();
+
+                if (!visites[idVoisin])
+                {
+                    if (DetecterCycleDFS(idVoisin, sommet, visites))
+                    {
+                        return true;
+                    }
+                }
+                else if (idVoisin != parent)
+                {
+                    return true; // Cycle détecté
+                }
+            }
+
+            return false;
+        }
+
     }
 }

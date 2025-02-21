@@ -38,6 +38,8 @@ namespace GrapheAssociation
 
             graphe.ParcoursLargeur(1);
             graphe.ParcoursProfondeur(1);
+            Console.WriteLine(graphe.EstConnexe());
+            Console.WriteLine(graphe.ContientCycle());
 
         }
 
