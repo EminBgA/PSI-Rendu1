@@ -38,15 +38,19 @@ namespace GrapheAssociation
 
             graphe.ParcoursLargeur(1);
             graphe.ParcoursProfondeur(1);
-            Console.WriteLine(graphe.EstConnexe());
-            Console.WriteLine(graphe.ContientCycle());
+            //Console.WriteLine(graphe.EstConnexe());
+            //Console.WriteLine(graphe.ContientCycle());
 
             filePath = Path.Combine(chemin, @"graphe.png");
             graphe.DessinerGraphe(filePath);
             FileStream file = File.Open(filePath, FileMode.Open, FileAccess.Write, FileShare.None);
             Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
         }
-
+        /// <summary>
+        /// Cette fonction transforme le fichier MTX fourni en tableau de tableau de int.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         static List<int[]> LireFichierMTX(string filePath)
         {
             List<int[]> valeurs = new List<int[]>();
@@ -77,7 +81,6 @@ namespace GrapheAssociation
                             {
                             int.Parse(parties[0]),
                             int.Parse(parties[1]),
-                            //int.Parse(parties[2])
                             };
 
                             valeurs.Add(triplet);
@@ -93,6 +96,11 @@ namespace GrapheAssociation
             return valeurs;
         }
 
+        /// <summary>
+        /// Cette fonction renvoie le nombre de noeuds inscrit sur le fichier MTX.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         static int GetNombreNoeuds(string filePath)
         {
             List<int[]> valeurs = new List<int[]>();

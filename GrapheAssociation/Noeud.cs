@@ -17,6 +17,10 @@ namespace GrapheAssociation
             voisins = new List<Noeud>();
         }
 
+        /// <summary>
+        /// Cette fonction ajouter un voisin à la liste de tous les voisins de ce noeud.
+        /// </summary>
+        /// <param name="voisin"></param>
         public void AjouterVoisin(Noeud voisin)
         {
             if (!voisins.Contains(voisin))
@@ -26,12 +30,19 @@ namespace GrapheAssociation
             }
         }
 
-
+        /// <summary>
+        /// Cette fonction renvoie la liste de tous les voisins de ce noeud.
+        /// </summary>
+        /// <returns></returns>
         public List<Noeud> GetVoisins()
         {
             return voisins;
         }
 
+        /// <summary>
+        /// Cette fonction renvoie tous les voisins de ce noeud sous forme de string.
+        /// </summary>
+        /// <returns></returns>
         public string VoisinsToString()
         {
             string txt = "{";
@@ -47,6 +58,11 @@ namespace GrapheAssociation
             return txt;
         }
 
+
+        /// <summary>
+        /// Cette fonction renvoie le numéro d'identification du membre.s
+        /// </summary>
+        /// <returns></returns>
         public int GetID()
         {
             return id;

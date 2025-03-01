@@ -1,0 +1,17 @@
+2025-02-22T17:55:32.4154051+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Version: 1.4.1+4f4ed7d3ce76cfa6e671c7a55f8b9cb6f2cb35c5
+2025-02-22T17:55:32.4338516+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Logging mode: asynchronous
+2025-02-22T17:55:32.4349206+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Logging level: Information
+2025-02-22T17:55:32.4349248+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION CreateBuilderAsync entry time: 17:55:32.388
+2025-02-22T17:55:32.4361054+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION PID: 37096
+2025-02-22T17:55:32.4361933+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Runtime information: win-x64 - .NET 8.0.11
+2025-02-22T17:55:32.4362011+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Runtime location: C:\Program Files\dotnet\shared\Microsoft.NETCore.App\8.0.11\System.Private.CoreLib.dll
+2025-02-22T17:55:32.4362175+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION IsDynamicCodeSupported: True
+2025-02-22T17:55:32.4362195+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Test module: C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\TestUnitaireAssociation\bin\Debug\net8.0\TestUnitaireAssociation.dll
+2025-02-22T17:55:32.4363818+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION Command line arguments: '--server --diagnostic --diagnostic-verbosity Information --diagnostic-output-directory C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\TestUnitaireAssociation\bin\Debug\net8.0\Log --results-directory C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\GrapheAssociation\TestResults --client-port 50130'
+2025-02-22T17:55:32.4375114+00:00 Microsoft.Testing.Platform.Builder.TestApplication INFORMATION TESTINGPLATFORM_DEFAULT_HANG_TIMEOUT: ''
+2025-02-22T17:55:32.4568655+00:00 Microsoft.Testing.Platform.Hosts.TestHostBuilder INFORMATION Setting RegisterEnvironmentVariablesConfigurationSource: 'True'
+2025-02-22T17:55:32.4603224+00:00 Microsoft.Testing.Platform.Configurations.JsonConfigurationSource+JsonConfigurationProvider INFORMATION Config file 'C:\Users\eminb\OneDrive\Documents\GitHub\PSI-Rendu1\TestUnitaireAssociation\bin\Debug\net8.0\TestUnitaireAssociation.testconfig.json' not found.
+2025-02-22T17:55:32.4614911+00:00 Microsoft.Testing.Platform.Hosts.TestHostBuilder INFORMATION Setting PlatformExitProcessOnUnhandledException: 'False', config file: False environment variable:  VSTest mode: False
+2025-02-22T17:55:32.5796587+00:00 Microsoft.Testing.Platform.Requests.TestHostTestFrameworkInvoker INFORMATION Test framework UID: 'MSTestExtension' Version: '3.6.1' DisplayName: 'MSTest' Description: 'MSTest Framework for Microsoft Testing Platform'
+2025-02-22T17:55:32.5901414+00:00 Microsoft.Testing.Extensions.VSTestBridge.ObjectModel.MessageLoggerAdapter WARNING Les attributs Runsettings « MaxCpuCount » ne sont pas pris en charge par Microsoft.Testing.Platform et seront ignorés
+2025-02-22T17:55:35.6775030+00:00 Microsoft.Testing.Extensions.Telemetry.AppInsightsProvider WARNING Telemetry task didn't flush after '3', some payload could be lost

@@ -33,31 +33,25 @@ namespace GrapheAssociation
             this.numNoeuds = numNoeuds;
         }
 
+        /// <summary>
+        /// Cette fonction créer un nouveau noeud et lui assigne le numéro d'identification passé en argument.
+        /// </summary>
+        /// <param name="id"></param>
         public void AjouterNoeud(int id)
         {
-            /*if (!Noeuds.ContainsKey(id))
-            {
-                Noeuds[id] = new Noeud(id);
-            }*/
             if (listeNoeuds[id] == null)
             {
                 listeNoeuds[id] = new Noeud(id);
             }
         }
 
+        /// <summary>
+        /// Cette fonction crée un lien entre deux noeuds s'il en existe pas encore un.
+        /// </summary>
+        /// <param name="id1"></param>
+        /// <param name="id2"></param>
         public void AjouterLien(int id1, int id2)
         {
-            /*if (Noeuds.ContainsKey(id1) && Noeuds.ContainsKey(id2))
-            {
-                Noeud n1 = Noeuds[id1];
-                Noeud n2 = Noeuds[id2];
-
-                if (!n1.Voisins.Contains(n2))
-                {
-                    n1.AjouterVoisin(n2);
-                    Liens.Add(new Lien(n1, n2));
-                }
-            }*/
             if (listeNoeuds[id1] != null && listeNoeuds[id2] != null)
             {
                 Noeud n1 = listeNoeuds[id1];
@@ -71,6 +65,9 @@ namespace GrapheAssociation
             }
         }
 
+        /// <summary>
+        /// Cette fonction construit la matrice adjacente à partir de la liste de tous les liens.
+        /// </summary>
         public void ConstruireMatriceAdjacence()
         {
             int taille = listeNoeuds.Length;
@@ -85,16 +82,13 @@ namespace GrapheAssociation
             }
         }
 
+        /// <summary>
+        /// Cette fonction affiche la liste adjacente.
+        /// </summary>
         public void AfficherListeAdjacence()
         {
             foreach (var noeud in listeNoeuds)
             {
-                /*Console.Write($"Noeud {noeud.Id} -> ");
-                foreach (var voisin in noeud.Voisins)
-                {
-                    Console.Write($"{voisin.Id} ");
-                }
-                Console.WriteLine();*/
                 if (noeud.GetID() != 0)
                 {
                    Console.WriteLine(noeud.GetID() + " : " + noeud.VoisinsToString());
@@ -103,6 +97,9 @@ namespace GrapheAssociation
             }
         }
 
+        /// <summary>
+        /// Cette fonction affiche la matrice adjacente. 
+        /// </summary>
         public void AfficherMatriceAdjacence()
         {
             for (int i = 1; i < listeNoeuds.Length; i++)
@@ -115,40 +112,33 @@ namespace GrapheAssociation
             }
         }
 
-        //public Dictionary<int, List<int>> ListeAdjacence = new Dictionary<int, List<int>>();
-        
-        
-        // Ajoute une connexion entre deux sommets
-        
-
-        // Parcours en Largeur (BFS)
-        public bool[] ParcoursLargeur(int sommetInitial)
+        /// <summary>
+        /// Cette fonction fait le parcours en largeur du graphe.
+        /// </summary>
+        /// <param name="noeudInitial"></param>
+        /// <returns></returns>
+        public bool[] ParcoursLargeur(int noeudInitial)
         {
-            // Création d'une file pour gérer l'ordre de visite
             bool[] visites = new bool[numNoeuds];
-            // Un ensemble pour suivre les sommets visités
-            List<int> file = new List<int>();
+            List<int> liste = new List<int>();
 
-            // Ajouter le sommet initial à la file
-            file.Add(sommetInitial);
-            visites[sommetInitial] = true;
+            liste.Add(noeudInitial);
+            visites[noeudInitial] = true;
 
-            Console.WriteLine("Parcours en Largeur (BFS) :");
+            Console.WriteLine("Parcours en Largeur:");
 
-            while (file.Count > 0)
+            while (liste.Count > 0)
             {
-                int sommetCourant = file[0];
-                file.RemoveAt(0);
-                Console.Write(sommetCourant + " ");
-
-                // Ajouter les voisins non visités du sommet courant dans la file
+                int noeudCourant = liste[0];
+                liste.RemoveAt(0);
+                Console.Write(noeudCourant + " ");
                 
-                for (int i = 0; i < listeNoeuds[sommetCourant].GetVoisins().Count; i++)
+                for (int i = 0; i < listeNoeuds[noeudCourant].GetVoisins().Count; i++)
                 {
-                    Noeud voisin = listeNoeuds[sommetCourant].GetVoisins()[i];
+                    Noeud voisin = listeNoeuds[noeudCourant].GetVoisins()[i];
                     if (!visites[voisin.GetID()])
                     {
-                        file.Add(voisin.GetID());
+                        liste.Add(voisin.GetID());
                         visites[voisin.GetID()] = true;
                     }
                 }
@@ -156,102 +146,113 @@ namespace GrapheAssociation
             Console.WriteLine();
             return visites;
         }
-
-        public bool[] ParcoursProfondeur(int sommetInitial)
+        
+        /// <summary>
+        /// Cette fonction fait le parcours en profondeur du graphe.
+        /// </summary>
+        /// <param name="noeudInitial"></param>
+        /// <returns></returns>
+        public bool[] ParcoursProfondeur(int noeudInitial)
         {
-            bool[] visites = new bool[numNoeuds + 1];
+            bool[] visites = new bool[numNoeuds];
+            List<int> liste = new List<int>();
 
-            // Liste pour gérer les sommets à visiter (similaire à une pile)
-            List<int> file = new List<int>();
+            liste.Add(noeudInitial);
+            //visites[noeudInitial] = true;
 
-            // Ajouter le sommet initial à la pile
-            file.Add(sommetInitial);
-            visites[sommetInitial] = true;
+            Console.WriteLine("Parcours en Profondeur:");
 
-            Console.WriteLine("Parcours en Profondeur (DFS) :");
-
-            // Tant que la pile n'est pas vide
-            while (file.Count > 0)
+            while (liste.Count > 0)
             {
-                // Retirer le sommet du haut de la pile
-                int sommetCourant = file[file.Count - 1];
-                file.RemoveAt(file.Count - 1);
-
-                Console.Write(sommetCourant + " ");
-
-                // Explorer les voisins du sommet actuel    
-                /*foreach (var voisin in ListeAdjacence[sommetCourant])
+                int noeudCourant = liste[liste.Count - 1];
+                if (!visites[noeudCourant])
                 {
-                    if (!visites[voisin])
+                    liste.RemoveAt(liste.Count - 1);
+                    visites[noeudCourant] = true;
+                    Console.Write(noeudCourant + " ");
+
+                    for (int i = listeNoeuds[noeudCourant].GetVoisins().Count - 1; i >= 0; i--)
                     {
-                        // Ajouter le voisin non visité à la pile
-                        pile.Add(voisin);
-                        visites[voisin] = true;
-                    }
-                }*/
-                for (int i = 0; i < listeNoeuds[sommetCourant].GetVoisins().Count; i++)
-                {
-                    Noeud voisin = listeNoeuds[sommetCourant].GetVoisins()[i];
-                    if (!visites[voisin.GetID()])
-                    {
-                        file.Add(voisin.GetID());
-                        visites[voisin.GetID()] = true;
+                        Noeud voisin = listeNoeuds[noeudCourant].GetVoisins()[i];
+                        if (!visites[voisin.GetID()])
+                        {
+                            liste.Add(voisin.GetID());
+                        }
                     }
                 }
+                else
+                {
+                    liste.RemoveAt(liste.Count - 1);
+                }   
             }
-
             Console.WriteLine();
             return visites;
         }
 
+
+
+        /// <summary>
+        /// Cette fonction vérifie si le graphe est connexe.
+        /// </summary>
+        /// <returns></returns>
         public bool EstConnexe()
         {
-            // Tableau pour suivre les sommets visités
             bool[] visites = new bool[numNoeuds];
-
-            // Lancer le parcours en largeur depuis le sommet 0
+            bool rep = true;
             visites = ParcoursProfondeur(1);
 
-            // Vérifier si tous les sommets ont été visités
             for (int i = 1; i < numNoeuds; i++)
             {
                 if (!visites[i])
-                    return false;
+                {
+                    rep = false;
+                }
+                    
             }
 
-            return true;
+            return rep;
         }
 
+        /// <summary>
+        /// Cette fonction vérifie si le graphe contient des cycles.
+        /// </summary>
+        /// <returns></returns>
         public bool ContientCycle()
         {
             bool[] visites = new bool[numNoeuds];
-
-            // Vérifie chaque composante connexe du graphe
+            bool rep = false;
             for (int i = 1; i < numNoeuds; i++)
             {
                 if (!visites[i])
                 {
-                    if (DetecterCycleDFS(i, -1, visites))
+                    if (DetecterCycle(i, -1, visites))
                     {
-                        return true;
+                        rep = true; ;
                     }
                 }
             }
 
-            return false;
+            return rep;
         }
 
-        public bool DetecterCycleDFS(int sommet, int parent, bool[] visites)
+        /// <summary>
+        /// Cette fonction vérifie si il y a un cycle à partir d'un noeud.
+        /// </summary>
+        /// <param name="sommet"></param>
+        /// <param name="parent"></param>
+        /// <param name="visites"></param>
+        /// <returns></returns>
+        public bool DetecterCycle(int noeud, int parent, bool[] visites)
         {
-            visites[sommet] = true;
+            visites[noeud] = true;
 
-            foreach (Noeud voisin in listeNoeuds[sommet].GetVoisins())
+            foreach (Noeud voisin in listeNoeuds[noeud].GetVoisins())
             {
                 int idVoisin = voisin.GetID();
 
                 if (!visites[idVoisin])
                 {
-                    if (DetecterCycleDFS(idVoisin, sommet, visites))
+                    if (DetecterCycle(idVoisin, noeud, visites))
                     {
                         return true;
                     }
@@ -265,6 +266,10 @@ namespace GrapheAssociation
             return false;
         }
 
+        /// <summary>
+        /// Cette fonction crée et dessine le graphe.
+        /// </summary>
+        /// <param name="filename"></param>
         public void DessinerGraphe(string filename)
         {
             int width = 2000;
@@ -307,6 +312,13 @@ namespace GrapheAssociation
 
             }
         }
+
+        /// <summary>
+        /// Cette fonction calcule la position de chaque noeud sur le canvas.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
         public Dictionary<int, SKPoint> CalculerPosition(int width, int height)
         {
             Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
@@ -322,16 +334,7 @@ namespace GrapheAssociation
                 float x = centerX + (float)(radius * Math.Cos(i * angleStep));
                 float y = centerY + (float)(radius * Math.Sin(i * angleStep));
                 positions[sommet] = new SKPoint(x, y);
-            }
-            /*
-            foreach (var sommet in ListeAdjacence.Keys)
-            {
-                float x = centerX + (float)(radius * Math.Cos(i * angleStep));
-                float y = centerY + (float)(radius * Math.Sin(i * angleStep));
-                positions[sommet] = new SKPoint(x, y);
-                i++;
-            }
-            */
+            } 
             return positions;
         }
 
