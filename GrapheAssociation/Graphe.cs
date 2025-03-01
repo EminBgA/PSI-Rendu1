@@ -17,10 +17,10 @@ namespace GrapheAssociation
 
         // Ajouter des nœuds
         //private Dictionary<int, Noeud> Noeuds { get; private set; }
-        private Noeud[] listeNoeuds;
+        private Noeud[] listeSommets;
         private List<Lien> listeLiens;
         private int[,] matriceAdjacence;
-        private int numNoeuds;
+        private int numSommets;
 
 
         private Dictionary<int, List<int>> ListeAdjacence;
@@ -28,9 +28,9 @@ namespace GrapheAssociation
 
         public Graphe(int numNoeuds)
         {
-            listeNoeuds = new Noeud[numNoeuds];
+            listeSommets = new Noeud[numNoeuds];
             listeLiens = new List<Lien>();
-            this.numNoeuds = numNoeuds;
+            this.numSommets = numNoeuds;
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace GrapheAssociation
         /// <param name="id"></param>
         public void AjouterNoeud(int id)
         {
-            if (listeNoeuds[id] == null)
+            if (listeSommets[id] == null)
             {
-                listeNoeuds[id] = new Noeud(id);
+                listeSommets[id] = new Noeud(id);
             }
         }
 
@@ -52,10 +52,10 @@ namespace GrapheAssociation
         /// <param name="id2"></param>
         public void AjouterLien(int id1, int id2)
         {
-            if (listeNoeuds[id1] != null && listeNoeuds[id2] != null)
+            if (listeSommets[id1] != null && listeSommets[id2] != null)
             {
-                Noeud n1 = listeNoeuds[id1];
-                Noeud n2 = listeNoeuds[id2];
+                Noeud n1 = listeSommets[id1];
+                Noeud n2 = listeSommets[id2];
                 if (!n1.GetVoisins().Contains(n2) && !n2.GetVoisins().Contains(n1))
                 {
                     n1.AjouterVoisin(n2);
@@ -70,7 +70,7 @@ namespace GrapheAssociation
         /// </summary>
         public void ConstruireMatriceAdjacence()
         {
-            int taille = listeNoeuds.Length;
+            int taille = listeSommets.Length;
             matriceAdjacence = new int[taille, taille];
 
             foreach (var lien in listeLiens)
@@ -87,7 +87,7 @@ namespace GrapheAssociation
         /// </summary>
         public void AfficherListeAdjacence()
         {
-            foreach (var noeud in listeNoeuds)
+            foreach (var noeud in listeSommets)
             {
                 if (noeud.GetID() != 0)
                 {
@@ -102,9 +102,9 @@ namespace GrapheAssociation
         /// </summary>
         public void AfficherMatriceAdjacence()
         {
-            for (int i = 1; i < listeNoeuds.Length; i++)
+            for (int i = 1; i < listeSommets.Length; i++)
             {
-                for (int j = 1; j < listeNoeuds.Length; j++)
+                for (int j = 1; j < listeSommets.Length; j++)
                 {
                     Console.Write(matriceAdjacence[i, j] + " ");
                 }
@@ -119,26 +119,26 @@ namespace GrapheAssociation
         /// <returns></returns>
         public bool[] ParcoursLargeur(int noeudInitial)
         {
-            bool[] visites = new bool[numNoeuds];
-            List<int> liste = new List<int>();
+            bool[] visites = new bool[numSommets];
+            List<int> pile = new List<int>();
 
-            liste.Add(noeudInitial);
+            pile.Add(noeudInitial);
             visites[noeudInitial] = true;
 
             Console.WriteLine("Parcours en Largeur:");
 
-            while (liste.Count > 0)
+            while (pile.Count > 0)
             {
-                int noeudCourant = liste[0];
-                liste.RemoveAt(0);
+                int noeudCourant = pile[0];
+                pile.RemoveAt(0);
                 Console.Write(noeudCourant + " ");
                 
-                for (int i = 0; i < listeNoeuds[noeudCourant].GetVoisins().Count; i++)
+                for (int i = 0; i < listeSommets[noeudCourant].GetVoisins().Count; i++)
                 {
-                    Noeud voisin = listeNoeuds[noeudCourant].GetVoisins()[i];
+                    Noeud voisin = listeSommets[noeudCourant].GetVoisins()[i];
                     if (!visites[voisin.GetID()])
                     {
-                        liste.Add(voisin.GetID());
+                        pile.Add(voisin.GetID());
                         visites[voisin.GetID()] = true;
                     }
                 }
@@ -154,35 +154,34 @@ namespace GrapheAssociation
         /// <returns></returns>
         public bool[] ParcoursProfondeur(int noeudInitial)
         {
-            bool[] visites = new bool[numNoeuds];
-            List<int> liste = new List<int>();
+            bool[] visites = new bool[numSommets];
+            List<int> pile = new List<int>();
 
-            liste.Add(noeudInitial);
-            //visites[noeudInitial] = true;
+            pile.Add(noeudInitial);
 
             Console.WriteLine("Parcours en Profondeur:");
 
-            while (liste.Count > 0)
+            while (pile.Count > 0)
             {
-                int noeudCourant = liste[liste.Count - 1];
+                int noeudCourant = pile[pile.Count - 1];
                 if (!visites[noeudCourant])
                 {
-                    liste.RemoveAt(liste.Count - 1);
+                    pile.RemoveAt(pile.Count - 1);
                     visites[noeudCourant] = true;
                     Console.Write(noeudCourant + " ");
 
-                    for (int i = listeNoeuds[noeudCourant].GetVoisins().Count - 1; i >= 0; i--)
+                    for (int i = listeSommets[noeudCourant].GetVoisins().Count - 1; i >= 0; i--)
                     {
-                        Noeud voisin = listeNoeuds[noeudCourant].GetVoisins()[i];
+                        Noeud voisin = listeSommets[noeudCourant].GetVoisins()[i];
                         if (!visites[voisin.GetID()])
                         {
-                            liste.Add(voisin.GetID());
+                            pile.Add(voisin.GetID());
                         }
                     }
                 }
                 else
                 {
-                    liste.RemoveAt(liste.Count - 1);
+                    pile.RemoveAt(pile.Count - 1);
                 }   
             }
             Console.WriteLine();
@@ -197,11 +196,11 @@ namespace GrapheAssociation
         /// <returns></returns>
         public bool EstConnexe()
         {
-            bool[] visites = new bool[numNoeuds];
+            bool[] visites = new bool[numSommets];
             bool rep = true;
             visites = ParcoursProfondeur(1);
 
-            for (int i = 1; i < numNoeuds; i++)
+            for (int i = 1; i < numSommets; i++)
             {
                 if (!visites[i])
                 {
@@ -219,51 +218,41 @@ namespace GrapheAssociation
         /// <returns></returns>
         public bool ContientCycle()
         {
-            bool[] visites = new bool[numNoeuds];
             bool rep = false;
-            for (int i = 1; i < numNoeuds; i++)
+            int sommetInitial = 1;
+            bool[] visites = new bool[numSommets];
+            List<int> pile = new List<int>();
+
+            pile.Add(sommetInitial);
+
+
+            while (pile.Count > 0)
             {
-                if (!visites[i])
+                int sommetCourant = pile[pile.Count - 1];
+                if (!visites[sommetCourant])
                 {
-                    if (DetecterCycle(i, -1, visites))
+                    pile.RemoveAt(pile.Count - 1);
+                    visites[sommetCourant] = true;   
+
+                    for (int i = listeSommets[sommetCourant].GetVoisins().Count - 1; i >= 0; i--)
                     {
-                        rep = true; ;
+                        Noeud voisin = listeSommets[sommetCourant].GetVoisins()[i];
+                        if (!visites[voisin.GetID()])
+                        {
+                            pile.Add(voisin.GetID());
+                        }
+                        else
+                        {
+                            rep = true;
+                        }
                     }
                 }
+                else
+                {
+                    pile.RemoveAt(pile.Count - 1);
+                }
             }
-
             return rep;
-        }
-
-        /// <summary>
-        /// Cette fonction vérifie si il y a un cycle à partir d'un noeud.
-        /// </summary>
-        /// <param name="sommet"></param>
-        /// <param name="parent"></param>
-        /// <param name="visites"></param>
-        /// <returns></returns>
-        public bool DetecterCycle(int noeud, int parent, bool[] visites)
-        {
-            visites[noeud] = true;
-
-            foreach (Noeud voisin in listeNoeuds[noeud].GetVoisins())
-            {
-                int idVoisin = voisin.GetID();
-
-                if (!visites[idVoisin])
-                {
-                    if (DetecterCycle(idVoisin, noeud, visites))
-                    {
-                        return true;
-                    }
-                }
-                else if (idVoisin != parent)
-                {
-                    return true; // Cycle détecté
-                }
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -284,13 +273,13 @@ namespace GrapheAssociation
             {
                 canvas.Clear(SKColors.White);
 
-                for (int i = 1; i < listeNoeuds.Length; i++)
+                for (int i = 1; i < listeSommets.Length; i++)
                 {
-                    for (int j = 0; j < listeNoeuds[i].GetVoisins().Count; j++)
+                    for (int j = 0; j < listeSommets[i].GetVoisins().Count; j++)
                     {
-                        if (listeNoeuds[i].GetID() < listeNoeuds[i].GetVoisins()[j].GetID())
+                        if (listeSommets[i].GetID() < listeSommets[i].GetVoisins()[j].GetID())
                         {
-                            canvas.DrawLine(positions[listeNoeuds[i].GetID()], positions[listeNoeuds[i].GetVoisins()[j].GetID()], paintEdge);
+                            canvas.DrawLine(positions[listeSommets[i].GetID()], positions[listeSommets[i].GetVoisins()[j].GetID()], paintEdge);
                         }
                     }
 
@@ -322,15 +311,15 @@ namespace GrapheAssociation
         public Dictionary<int, SKPoint> CalculerPosition(int width, int height)
         {
             Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
-            int n = numNoeuds + 1;
+            int n = numSommets + 1;
             double angleStep = 2 * Math.PI / Math.Max(n, 1);
             int centerX = width / 2, centerY = height / 2, radius = 700;
 
             //int i = 0;
 
-            for (int i = 1; i < listeNoeuds.Length; i++)
+            for (int i = 1; i < listeSommets.Length; i++)
             {
-                int sommet = listeNoeuds[i].GetID();
+                int sommet = listeSommets[i].GetID();
                 float x = centerX + (float)(radius * Math.Cos(i * angleStep));
                 float y = centerY + (float)(radius * Math.Sin(i * angleStep));
                 positions[sommet] = new SKPoint(x, y);

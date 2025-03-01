@@ -38,8 +38,8 @@ namespace GrapheAssociation
 
             graphe.ParcoursLargeur(1);
             graphe.ParcoursProfondeur(1);
-            //Console.WriteLine(graphe.EstConnexe());
-            //Console.WriteLine(graphe.ContientCycle());
+            Console.WriteLine("Le graphe est connexe : " + graphe.EstConnexe());
+            Console.WriteLine("Le graphe contient des cycles : " + graphe.ContientCycle());
 
             filePath = Path.Combine(chemin, @"graphe.png");
             graphe.DessinerGraphe(filePath);
@@ -63,12 +63,10 @@ namespace GrapheAssociation
                     bool debutDonnees = false;
                     while ((ligne = sr.ReadLine()) != null)
                     {
-                        // Ignorer les commentaires (% en début de ligne)
                         if (ligne.StartsWith("%")) continue;
 
                         string[] parties = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                        // Lire la première ligne qui contient les dimensions et passer aux données
                         if (!debutDonnees)
                         {
                             debutDonnees = true;
@@ -76,7 +74,6 @@ namespace GrapheAssociation
                         }
                         else
                         {
-                            // Convertir en int et stocker dans le tableau
                             int[] triplet = new int[2]
                             {
                             int.Parse(parties[0]),
@@ -113,12 +110,10 @@ namespace GrapheAssociation
                     bool debutDonnees = false;
                     while ((ligne = sr.ReadLine()) != null)
                     {
-                        // Ignorer les commentaires (% en début de ligne)
                         if (ligne.StartsWith("%")) continue;
 
                         string[] parties = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                        // Lire la première ligne qui contient les dimensions et passer aux données
                         if (!debutDonnees)
                         {
                             debutDonnees = true;
