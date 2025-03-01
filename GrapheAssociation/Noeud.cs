@@ -26,7 +26,6 @@ namespace GrapheAssociation
             if (!voisins.Contains(voisin))
             {
                 voisins.Add(voisin);
-                //oisin.voisins.Add(this); // Relation réciproque car le graphe est non orienté
             }
         }
 

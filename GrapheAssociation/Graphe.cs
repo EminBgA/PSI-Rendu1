@@ -261,37 +261,45 @@ namespace GrapheAssociation
         /// <param name="filename"></param>
         public void DessinerGraphe(string filename)
         {
+            // Taille de l'image
             int width = 2000;
             int height = 2000;
+            
+            // Calcul de la position de chaque sommet sur le graphe
             positions = CalculerPosition(width, height);
 
+            // Création du canvas pour le graphe
             using (var bitmap = new SKBitmap(width, height))
             using (var canvas = new SKCanvas(bitmap))
-            using (var paintEdge = new SKPaint { Color = SKColors.Black, StrokeWidth = 3 })
-            using (var paintNode = new SKPaint { Color = SKColors.Blue, IsAntialias = true })
-            using (var paintText = new SKPaint { Color = SKColors.Red, TextSize = 40, IsAntialias = true })
+            using (var paintEdge = new SKPaint { Color = SKColors.Black, StrokeWidth = 3 }) // Apparence des arêtes.
+            using (var paintNode = new SKPaint { Color = SKColors.Blue, IsAntialias = true }) // Apparence des sommets.
+            using (var paintText = new SKPaint { Color = SKColors.Red, TextSize = 40, IsAntialias = true }) // Apparence du texte.
             {
-                canvas.Clear(SKColors.White);
+                canvas.Clear(SKColors.White); // Remplissage du fond du canvas en blanc.
 
-                for (int i = 1; i < listeSommets.Length; i++)
+                
+                // Début : dessin des arrêtes
+                for (int i = 1; i < listeSommets.Length; i++)  // On accède à chaque sommet.
                 {
-                    for (int j = 0; j < listeSommets[i].GetVoisins().Count; j++)
+                    for (int j = 0; j < listeSommets[i].GetVoisins().Count; j++)   // Ajout de chaque arrête.
                     {
-                        if (listeSommets[i].GetID() < listeSommets[i].GetVoisins()[j].GetID())
+                        if (listeSommets[i].GetID() < listeSommets[i].GetVoisins()[j].GetID())  // Vérification qu'une arête n'est pas déjà dessiné
                         {
                             canvas.DrawLine(positions[listeSommets[i].GetID()], positions[listeSommets[i].GetVoisins()[j].GetID()], paintEdge);
                         }
                     }
 
-                }
+                }// Fin
 
+                // Début : dessin des sommets
                 foreach (var node in positions)
                 {
                     SKPoint pos = node.Value;
-                    canvas.DrawCircle(pos, 40, paintNode);
-                    canvas.DrawText(node.Key.ToString(), pos.X - 12, pos.Y + 7, paintText);
-                }
+                    canvas.DrawCircle(pos, 40, paintNode);  // Dessin d'un cercle
+                    canvas.DrawText(node.Key.ToString(), pos.X - 12, pos.Y + 7, paintText); // Ajout de l'ID du sommet
+                }// Fin
 
+                //Sauvegarde de l'image en format png à l'endroit souhaité.
                 using (var image = SKImage.FromBitmap(bitmap))
                 using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
                 using (var stream = File.OpenWrite(filename))
@@ -303,7 +311,7 @@ namespace GrapheAssociation
         }
 
         /// <summary>
-        /// Cette fonction calcule la position de chaque noeud sur le canvas.
+        /// Cette fonction calcule la position de chaque sommet sur le canvas de sorte que les sommets forment un cercle.
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
@@ -312,19 +320,19 @@ namespace GrapheAssociation
         {
             Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
             int n = numSommets + 1;
-            double angleStep = 2 * Math.PI / Math.Max(n, 1);
-            int centerX = width / 2, centerY = height / 2, radius = 700;
+            double angleStep = 2 * Math.PI / Math.Max(n, 1);  // Calcul de l'angle entre chaque sommet dépendant du nombre de sommets dans le graphe
+            int centerX = width / 2, centerY = height / 2, radius = 700; // Calcul du centre et du rayon du cercle
 
-            //int i = 0;
-
+            
+            // Calcul des coord de chaque sommet
             for (int i = 1; i < listeSommets.Length; i++)
             {
                 int sommet = listeSommets[i].GetID();
-                float x = centerX + (float)(radius * Math.Cos(i * angleStep));
-                float y = centerY + (float)(radius * Math.Sin(i * angleStep));
+                float x = centerX + (float)(radius * Math.Cos(i * angleStep)); // Calcul de position X
+                float y = centerY + (float)(radius * Math.Sin(i * angleStep)); // Calcul de poistion Y
                 positions[sommet] = new SKPoint(x, y);
             } 
-            return positions;
+            return positions;  // Retourne la position de chaque sommet
         }
 
         
