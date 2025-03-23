@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\LienC#SQL.csproj": {}
+    "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#Sql\\LienC#Sql.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\LienC#SQL.csproj": {
+    "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#Sql\\LienC#Sql.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\LienC#SQL.csproj",
-        "projectName": "LienC#SQL",
-        "projectPath": "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\LienC#SQL.csproj",
+        "projectUniqueName": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#Sql\\LienC#Sql.csproj",
+        "projectName": "LienC#Sql",
+        "projectPath": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#Sql\\LienC#Sql.csproj",
         "packagesPath": "C:\\Users\\cyril\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\obj\\",
+        "outputPath": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#Sql\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,12 +48,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "MySql.Data": {
-              "target": "Package",
-              "version": "[9.2.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

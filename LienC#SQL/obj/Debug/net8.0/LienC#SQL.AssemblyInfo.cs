@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("LienC#SQL")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("LienC#Sql")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("LienC#SQL")]
-[assembly: System.Reflection.AssemblyTitleAttribute("LienC#SQL")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44235da488b066a04b5ed6a7f104125b645f8294")]
+[assembly: System.Reflection.AssemblyProductAttribute("LienC#Sql")]
+[assembly: System.Reflection.AssemblyTitleAttribute("LienC#Sql")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Généré par la classe MSBuild WriteCodeFragment.

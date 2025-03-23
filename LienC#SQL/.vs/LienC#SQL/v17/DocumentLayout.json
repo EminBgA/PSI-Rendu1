@@ -1,13 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\",
+  "WorkspaceRootPath": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CB874F4C-CA68-4794-9109-9EAD3C9A0025}|LienC#SQL.csproj|c:\\users\\cyril\\source\\repos\\lienc#sql\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB874F4C-CA68-4794-9109-9EAD3C9A0025}|LienC#SQL.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB874F4C-CA68-4794-9109-9EAD3C9A0025}|LienC#SQL.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -25,28 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LienC#SQL.cs",
-              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL.cs",
-              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL.cs",
-              "RelativeToolTip": "..\\..\\..\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T19:46:58.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\cyril\\source\\repos\\LienC#SQL\\Program.cs",
+              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T19:07:43.786Z",
+              "WhenOpened": "2025-03-23T21:10:48.907Z",
               "EditorCaption": ""
             },
             {
