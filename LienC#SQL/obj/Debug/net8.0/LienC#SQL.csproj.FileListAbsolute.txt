@@ -1,0 +1,5 @@
+C:\Users\cyril\source\repos\LienC#SQL\obj\Debug\net8.0\LienC#SQL.csproj.AssemblyReference.cache
+C:\Users\cyril\source\repos\LienC#SQL\obj\Debug\net8.0\LienC#SQL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cyril\source\repos\LienC#SQL\obj\Debug\net8.0\LienC#SQL.AssemblyInfoInputs.cache
+C:\Users\cyril\source\repos\LienC#SQL\obj\Debug\net8.0\LienC#SQL.AssemblyInfo.cs
+C:\Users\cyril\source\repos\LienC#SQL\obj\Debug\net8.0\LienC#SQL.csproj.CoreCompileInputs.cache
