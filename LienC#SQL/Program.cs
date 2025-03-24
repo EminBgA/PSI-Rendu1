@@ -16,10 +16,50 @@ namespace LienC_Sql
         {
             
 
+            
             //// Création et configuration de l'objet connexion
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
             MySqlConnection Connexion = new MySqlConnection(ConnexionString);
             Connexion.Open();
+
+            //// Récupération mot clé de l'utilisateur
+            Console.WriteLine("Veuillez saisir le nom du client recherché ");
+            string NomSaisi = Console.ReadLine();
+
+            //// Ajout des paramètres
+            MySqlParameter ParamNom = new MySqlParameter("@nom", MySqlDbType.VarChar);
+            ParamNom.Value = NomSaisi;
+            
+            ////Création de l'objet Command avec la requête
+            string Requete = "Select * from Client where NomC =@nom ;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            Command.Parameters.Add(ParamNom);
+            //// Execution de la requête et récupération des résultats dans l'objet MySqlDataReader
+            MySqlDataReader reader = Command.ExecuteReader();
+
+
+            
+            //// Récupération des résultats dans des variables C#
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString() ;
+                    Console.Write(valueString[i] + " , ");
+
+                }
+                Console.WriteLine();
+            }
+
+
+            Console.ReadLine();
+
+            reader.Close();
+            Command.Dispose();
+            Connexion.Close();
         }
 
         static void InsertClientIntoDB(Client item)
