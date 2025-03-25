@@ -11,7 +11,7 @@ namespace LienC_Sql
     {
         
 
-        internal int idCLient { get; set; }
+        internal int idClient { get; set; }
         internal string NomC {  get; set; }
         internal string PrénomC { get; set; }
         internal string AdresseC { get; set; }
@@ -21,5 +21,16 @@ namespace LienC_Sql
         internal string Id_Utilisateur { get; set; }
 
         public Client() { }
+        public Client(int idClient, string NomC, string PrénomC, string AdresseC, string TelephoneC, string EmailC, string regimeAlC, string Id_Utilisateur)
+        {
+            this.idClient = idClient;
+            this.NomC = NomC;
+            this.PrénomC = PrénomC;  
+            this.AdresseC = AdresseC;
+            this.TelephoneC = TelephoneC;
+            this.EmailC = EmailC;
+            this.regimeAlC = regimeAlC;
+            this.Id_Utilisateur = Id_Utilisateur;
+        }
     }
 }
