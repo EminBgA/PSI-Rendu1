@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
@@ -14,87 +15,15 @@ namespace LienC_Sql
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Que voulez vous faire?");
-            Console.WriteLine("1-Ajouter un utilisateur/client/cuisinier dans la BDD");
+            Console.WriteLine("Bienvenue sur Liv'in Paris!");
+            Console.WriteLine("1-Nouveau? Inscrivez-vous!");
             Console.WriteLine("2-Lancer une requête");
             int s = Convert.ToInt32(Console.ReadLine());
             switch (s)
             {
                 case 1:
-                    Console.WriteLine("Saisissez l'id de l'utilisateur:");
-                    string idU= Console.ReadLine();
-                    Console.WriteLine("Saisissez le mot de passe de l'utilisateur:");
-                    string mdp= Console.ReadLine();
-                    Utilisateur user1 = new Utilisateur(idU, mdp);
-                    InsertUtilisateurIntoDB(user1);
-                    Console.WriteLine("L'utilisateur a été créé");
-                    Console.WriteLine("Voulez vous que votre utilisateur soit?: ");
-                    Console.WriteLine("1-Un client");
-                    Console.WriteLine("2-Un cuisinier");
-                    Console.WriteLine("3-Un client et un cuisinier");
-                    int v = Convert.ToInt32(Console.ReadLine());
-                    switch(v)
-                    {
-                        case 1:
-                            Console.WriteLine("id du client:");
-                            int idc= Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Nom du client:");
-                            string nomc= Console.ReadLine();
-                            Console.WriteLine("Prénom du client:");
-                            string prénomc = Console.ReadLine();
-                            Console.WriteLine("adresse du client:");
-                            string adressec = Console.ReadLine();
-                            Console.WriteLine("téléphone du client:");
-                            string telc = Console.ReadLine();
-                            Console.WriteLine("mail du client:");
-                            string mailc = Console.ReadLine();
-                            Console.WriteLine("régime alimentaire du client:");
-                            string regc = Console.ReadLine();
-                            // Appel de la méthode pour ajouter un utilisateur/client
-                            Client client = new Client(idc, nomc, prénomc, adressec, telc, mailc, regc, idU);
-                            InsertClientIntoDB(client);
-                            break;
+                    InsertUtilisateurInBD();
 
-                        case 2:
-                            Console.WriteLine("id du cuisinier");
- 
-                            int idcui = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Nom du cuisinier:");
-                            string nomcui = Console.ReadLine();
-                            Console.WriteLine("Prénom du cuisinier:");
-                            string prénomcui = Console.ReadLine();
-                            Console.WriteLine("adresse du cuisinier:");
-                            string adressecui = Console.ReadLine();
-                            Console.WriteLine("téléphone du cuisinier:");
-                            string telcui = Console.ReadLine();
-                            Console.WriteLine("mail du cuisinier:");
-                            string mailcui = Console.ReadLine();
-                            Console.WriteLine("spécialités du cuisinier:");
-                            string specui = Console.ReadLine();
-                            Cuisinier cuisinier= new Client(idcui, nomcui, prénomcui, adressecui, telcui, mailcui, regcui, idU);
-                            InsertCuisinierIntoDB(cuisinier);
-                            break;
-                        case 3:
-                            Console.WriteLine("id du client:");
-                            int idc = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Nom du client:");
-                            string nomc = Console.ReadLine();
-                            Console.WriteLine("Prénom du client:");
-                            string prénomc = Console.ReadLine();
-                            Console.WriteLine("adresse du client:");
-                            string adressec = Console.ReadLine();
-                            Console.WriteLine("téléphone du client:");
-                            string telc = Console.ReadLine();
-                            Console.WriteLine("mail du client:");
-                            string mailc = Console.ReadLine();
-                            Console.WriteLine("régime alimentaire du client:");
-                            string regc = Console.ReadLine();
-                            // Appel de la méthode pour ajouter un utilisateur/client
-                            Client client = new Client(idc, nomc, prénomc, adressec, telc, mailc, regc, idU);
-                            InsertClientIntoDB(client);
-                            break;
-                    }
-                    
                     break;
 
                 case 2:
@@ -147,9 +76,76 @@ namespace LienC_Sql
                     Console.WriteLine("Option invalide. Veuillez choisir 1 ou 2.");
                     break;
             }
-            
 
-            
+
+
+        }
+        static void InsertUtilisateurInBD()
+        {
+            Console.WriteLine("Créez id d'utilisateur de la plateforme:");
+            string idU = Console.ReadLine();
+            Console.WriteLine("Créez un mot de passe d'utilisateur de la plateforme:");
+            string mdp = Console.ReadLine();
+            Utilisateur user1 = new Utilisateur(idU, mdp);
+            InsertUtilisateurIntoDB(user1);
+            Console.WriteLine("Bienvenue, vous êtes un nouvel utilisateur de la plateforme");
+
+            Console.WriteLine("Quel est votre nom?");
+            string nom = Console.ReadLine();
+            Console.WriteLine("Votre prénom?");
+            string prénom = Console.ReadLine();
+            Console.WriteLine("Votre adresse?");
+            string adresse = Console.ReadLine();
+            Console.WriteLine("Votre numéro de téléphone");
+            long tel = Convert.ToInt64(Console.ReadLine());
+            Console.WriteLine("Votre mail?");   // le cuisinier et le client partage le même mail
+            string mail = Console.ReadLine();
+
+            Console.WriteLine("Bien maintenant, vous voulez vous inscrire en tant que? ");
+            Console.WriteLine("1-Un client");
+            Console.WriteLine("2-Un cuisinier");
+            Console.WriteLine("3-Un client et un cuisinier");
+            int v = Convert.ToInt32(Console.ReadLine());
+            switch (v)
+            {
+
+                case 1:
+                    Console.WriteLine("Votre id de client:");    // à créer automatiquement
+                    int idC = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Précisez votre régime alimentaire");
+                    string reg = Console.ReadLine();
+                    Client client = new Client(idC, nom, prénom, adresse, tel, mail, reg, idU);
+                    InsertClientIntoDB(client);
+                    Console.WriteLine("Bienvenue en tant que nouveau client de Liv'in Paris!");
+                    break;
+
+                case 2:
+                    Console.WriteLine("id du cuisinier:");    // à créer automatiquement aussi
+                    int idcui = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("quels sont vos spécialités?");
+                    string specui = Console.ReadLine();
+                    Cuisinier cuisinier = new Cuisinier(idcui, nom, prénom, adresse, tel, mail, specui, idU);
+                    InsertCuisinierIntoDB(cuisinier);
+                    Console.WriteLine("Bienvenue en tant que nouveau cuisinier de Liv'in Paris!");
+                    break;
+
+                case 3:
+                    Console.WriteLine("id du client:");    // à créer automatiquement aussi
+                    int idV = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("régime alimentaire du client:");
+                    string regV = Console.ReadLine();
+                    Client client1 = new Client(idV, nom, prénom, adresse, tel, mail, regV, idU);
+                    InsertClientIntoDB(client1);
+                    Console.WriteLine("Client créé");
+                    Console.WriteLine("id du cuisinier");
+                    int idCuis = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("quels sont vos spécialités?");
+                    string specuis = Console.ReadLine();
+                    Cuisinier cuisinier1 = new Cuisinier(idCuis, nom, prénom, adresse, tel, mail, specuis, idU);
+                    InsertCuisinierIntoDB(cuisinier1);
+                    Console.WriteLine("Bienvenue en tant que nouveau client et cuisinier de Liv'in Paris!");
+                    break;
+            }
         }
 
         static void InsertClientIntoDB(Client item)
@@ -177,6 +173,7 @@ namespace LienC_Sql
             }
             command.Dispose();
         }
+
 
         static void InsertUtilisateurIntoDB(Utilisateur item)
         {
@@ -211,7 +208,7 @@ namespace LienC_Sql
             Connexion.Open();
 
             Console.WriteLine("Vous voulez insérez l'utilisateur " + item.IdCuisinier + " dans la BDD");
-            string createClient = $@"INSERT INTO plateforme.cusinier (IdCuisinier, NomP, prenomP, AdresseP, telephoneP, EmailP, spécialités, Id_Utilisateur)
+            string createClient = $@"INSERT INTO plateforme.cuisinier (IdCuisinier, NomP, prenomP, AdresseP, telephoneP, EmailP, spécialités, Id_Utilisateur)
                                 VALUES ('{item.IdCuisinier}', '{item.nomP}', '{item.prenomP}', '{item.adresseP}', '{item.telephoneP}', '{item.emailP}', '{item.spécialités}', '{item.Id_Utilisateur}')";
 
             MySqlCommand command = Connexion.CreateCommand();
@@ -251,7 +248,7 @@ namespace LienC_Sql
                         UnClient.NomC = Elements[1];
                         UnClient.PrénomC = Elements[2];
                         UnClient.AdresseC = Elements[3];
-                        UnClient.TelephoneC = Elements[4];
+                        UnClient.TelephoneC = Convert.ToInt64(Elements[4]);
                         UnClient.EmailC = Elements[5];
                         UnClient.regimeAlC = Elements[6];
                         UnClient.Id_Utilisateur = Elements[7];

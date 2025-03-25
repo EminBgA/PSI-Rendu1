@@ -12,12 +12,12 @@ namespace LienC_Sql
         internal string nomP;
         internal string prenomP;
         internal string adresseP;
-        internal int telephoneP;
+        internal long telephoneP;
         internal string emailP;
         internal string spécialités;
-        internal int Id_Utilisateur;
+        internal string Id_Utilisateur;
 
-        public Cuisinier(int IdCuisinier, string nomP, string prenomP, string adresseP, int telephoneP, string emailP, string spécialités, int Id_Utilisateur)
+        public Cuisinier(int IdCuisinier, string nomP, string prenomP, string adresseP, long telephoneP, string emailP, string spécialités, string Id_Utilisateur)
         {
             this.IdCuisinier = IdCuisinier;
             this.nomP = nomP;
