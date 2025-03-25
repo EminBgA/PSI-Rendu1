@@ -8,5 +8,26 @@ namespace LienC_Sql
 {
     internal class Cuisinier
     {
+        internal int IdCuisinier;
+        internal string nomP;
+        internal string prenomP;
+        internal string adresseP;
+        internal int telephoneP;
+        internal string emailP;
+        internal string spécialités;
+        internal int Id_Utilisateur;
+
+        public Cuisinier(int IdCuisinier, string nomP, string prenomP, string adresseP, int telephoneP, string emailP, string spécialités, int Id_Utilisateur)
+        {
+            this.IdCuisinier = IdCuisinier;
+            this.nomP = nomP;
+            this.prenomP = prenomP;
+            this.adresseP = adresseP;
+            this.telephoneP = telephoneP;
+            this.emailP = emailP;
+            this.spécialités = spécialités;
+            this.Id_Utilisateur = Id_Utilisateur;
+        }
+
     }
 }
