@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,9 @@ namespace LienC_Sql
         static void Main(string[] args)
         {
             Console.WriteLine("Bienvenue sur Liv'in Paris!");
-            Console.WriteLine("1-Nouveau? Inscrivez-vous!");
-            Console.WriteLine("2-Lancer une requête");
+            Console.WriteLine("1-Nouveau? Inscrivez-vous! (Ajouter un utilisateur/client/cuisinier dans la BDD) ");
+            Console.WriteLine("2-Connectez-vous.   (Afficher ou modifier les informations d'un client/cuisinier) ");
+            Console.WriteLine("3-Vous êtes admin? Lancer des requêtes sur la BDD de la plateforme. (Lancer des requêtes sur l'ensemble de la BDD) ");
             int s = Convert.ToInt32(Console.ReadLine());
             switch (s)
             {
@@ -110,8 +112,7 @@ namespace LienC_Sql
             {
 
                 case 1:
-                    Console.WriteLine("Votre id de client:");    // à créer automatiquement
-                    int idC = Convert.ToInt32(Console.ReadLine());
+                    string idC=null;
                     Console.WriteLine("Précisez votre régime alimentaire");
                     string reg = Console.ReadLine();
                     Client client = new Client(idC, nom, prénom, adresse, tel, mail, reg, idU);
@@ -120,8 +121,7 @@ namespace LienC_Sql
                     break;
 
                 case 2:
-                    Console.WriteLine("id du cuisinier:");    // à créer automatiquement aussi
-                    int idcui = Convert.ToInt32(Console.ReadLine());
+                    string idcui = null;
                     Console.WriteLine("quels sont vos spécialités?");
                     string specui = Console.ReadLine();
                     Cuisinier cuisinier = new Cuisinier(idcui, nom, prénom, adresse, tel, mail, specui, idU);
@@ -130,51 +130,21 @@ namespace LienC_Sql
                     break;
 
                 case 3:
-                    Console.WriteLine("id du client:");    // à créer automatiquement aussi
-                    int idV = Convert.ToInt32(Console.ReadLine());
+                    string idC1 = null;
                     Console.WriteLine("régime alimentaire du client:");
                     string regV = Console.ReadLine();
-                    Client client1 = new Client(idV, nom, prénom, adresse, tel, mail, regV, idU);
+                    Client client1 = new Client(idC1, nom, prénom, adresse, tel, mail, regV, idU);
                     InsertClientIntoDB(client1);
                     Console.WriteLine("Client créé");
-                    Console.WriteLine("id du cuisinier");
-                    int idCuis = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("quels sont vos spécialités?");
+                    string idcuis = null;
+                    Console.WriteLine("quels sont vos spécialités en tant que cuisinier?");
                     string specuis = Console.ReadLine();
-                    Cuisinier cuisinier1 = new Cuisinier(idCuis, nom, prénom, adresse, tel, mail, specuis, idU);
+                    Cuisinier cuisinier1 = new Cuisinier(idcuis, nom, prénom, adresse, tel, mail, specuis, idU);
                     InsertCuisinierIntoDB(cuisinier1);
                     Console.WriteLine("Bienvenue en tant que nouveau client et cuisinier de Liv'in Paris!");
                     break;
             }
         }
-
-        static void InsertClientIntoDB(Client item)
-        {
-            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
-            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
-            Connexion.Open();
-
-            Console.WriteLine("Vous voulez insérez le client "+ item.idClient+" dans la BDD");
-            string createClient = $@"INSERT INTO plateforme.client (idClient, NomC, PrénomC, AdresseC, TelephoneC, EmailC, regimeAlC, Id_Utilisateur)
-                                VALUES ('{item.idClient}', '{item.NomC}', '{item.PrénomC}', '{item.AdresseC}', '{item.TelephoneC}', '{item.EmailC}', '{item.regimeAlC}', '{item.Id_Utilisateur}')";
-
-
-            MySqlCommand command = Connexion.CreateCommand();
-            command.CommandText= createClient;
-            try
-            {
-                command.ExecuteNonQuery();
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine("Erreur connexion: " + e.ToString());
-                Console.ReadLine();
-                return;
-            }
-            command.Dispose();
-        }
-
-
         static void InsertUtilisateurIntoDB(Utilisateur item)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
@@ -201,15 +171,76 @@ namespace LienC_Sql
             command.Dispose();
         }
 
+        static void InsertClientIntoDB(Client item)
+        {
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+            //Création de l'objet Command avec la requête
+            string Requete = "select MAX(IdClient) AS IdClient from client;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            // Execution de la requête et récupération des résultats dans l'objet MySqlDataReader
+            MySqlDataReader reader = Command.ExecuteReader();
+            string IdClient = "";
+            // Récupération des résultats dans des variables C#
+            while (reader.Read())
+            {
+                IdClient = reader["IdClient"].ToString();
+            }
+            reader.Close();
+            // traitement du CodeC récupéré pour générer un nouveau C672
+            int PartieNumerique = Convert.ToInt32(IdClient.Substring(2));
+            PartieNumerique++;
+            string NouveauIdClient = "CL" + PartieNumerique.ToString();
+
+            Console.WriteLine("Vous voulez insérez le client " + NouveauIdClient + " dans la BDD");
+            string createClient = $@"INSERT INTO plateforme.client (idClient, NomC, PrénomC, AdresseC, TelephoneC, EmailC, regimeAlC, Id_Utilisateur)
+                                VALUES ('{NouveauIdClient}', '{item.NomC}', '{item.PrénomC}', '{item.AdresseC}', '{item.TelephoneC}', '{item.EmailC}', '{item.regimeAlC}', '{item.Id_Utilisateur}')";
+            item.idClient = NouveauIdClient; //on ajoute aussi l'id du client sur C#
+
+            MySqlCommand command = Connexion.CreateCommand();
+            command.CommandText = createClient;
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Erreur connexion: " + e.ToString());
+                Console.ReadLine();
+                return;
+            }
+            command.Dispose();
+        }
+
         static void InsertCuisinierIntoDB(Cuisinier item)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
             MySqlConnection Connexion = new MySqlConnection(ConnexionString);
             Connexion.Open();
+            //Création de l'objet Command avec la requête
+            string Requete = "select MAX(IdCuisinier) AS IdCuisinier from cuisinier;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            // Execution de la requête et récupération des résultats dans l'objet MySqlDataReader
+            MySqlDataReader reader = Command.ExecuteReader();
+            string IdCuisinier = "";
+            // Récupération des résultats dans des variables C#
+            while (reader.Read())
+            {
+                IdCuisinier = reader["IdCuisinier"].ToString();
+            }
+            reader.Close();
+          
+            int PartieNumerique = Convert.ToInt32(IdCuisinier.Substring(2));
+            PartieNumerique++;
+            string NouveauIdCuisinier = "CU" + PartieNumerique.ToString();
 
-            Console.WriteLine("Vous voulez insérez l'utilisateur " + item.IdCuisinier + " dans la BDD");
+            Console.WriteLine("Vous voulez insérez l'utilisateur " + NouveauIdCuisinier+ " dans la BDD");
             string createClient = $@"INSERT INTO plateforme.cuisinier (IdCuisinier, NomP, prenomP, AdresseP, telephoneP, EmailP, spécialités, Id_Utilisateur)
-                                VALUES ('{item.IdCuisinier}', '{item.nomP}', '{item.prenomP}', '{item.adresseP}', '{item.telephoneP}', '{item.emailP}', '{item.spécialités}', '{item.Id_Utilisateur}')";
+                                VALUES ('{NouveauIdCuisinier}', '{item.nomP}', '{item.prenomP}', '{item.adresseP}', '{item.telephoneP}', '{item.emailP}', '{item.spécialités}', '{item.Id_Utilisateur}')";
+            item.IdCuisinier = NouveauIdCuisinier;  //on modifie l'id du cuisinier également sur C#
 
             MySqlCommand command = Connexion.CreateCommand();
             command.CommandText = createClient;
@@ -244,7 +275,7 @@ namespace LienC_Sql
                         String[] Elements = field.Split(';');
 
                         Client UnClient = new Client();
-                        UnClient.idClient = Convert.ToInt32(Elements[0]);
+                        UnClient.idClient = Elements[0];
                         UnClient.NomC = Elements[1];
                         UnClient.PrénomC = Elements[2];
                         UnClient.AdresseC = Elements[3];
