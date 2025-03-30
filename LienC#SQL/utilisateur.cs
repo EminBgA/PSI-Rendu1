@@ -18,5 +18,10 @@ namespace LienC_Sql
             this.Mot_de_Passe = Mot_de_Passe;
         }
 
+        public Utilisateur(string Id_Utilisateur)
+        {
+            this.Id_Utilisateur = Id_Utilisateur;
+        }
+
     }
 }

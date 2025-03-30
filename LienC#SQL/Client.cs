@@ -20,7 +20,7 @@ namespace LienC_Sql
         internal string regimeAlC { get; set; }
         internal string Id_Utilisateur { get; set; }
 
-        public Client() { }
+        public Client(string idClient) { this.idClient = idClient; }
         public Client(string idClient, string NomC, string PrénomC, string AdresseC, long TelephoneC, string EmailC, string regimeAlC, string Id_Utilisateur)
         {
             this.idClient = idClient;
@@ -32,5 +32,7 @@ namespace LienC_Sql
             this.regimeAlC = regimeAlC;
             this.Id_Utilisateur = Id_Utilisateur;
         }
+        public Client() { }
+        
     }
 }

@@ -28,6 +28,11 @@ namespace LienC_Sql
             this.spécialités = spécialités;
             this.Id_Utilisateur = Id_Utilisateur;
         }
+        public Cuisinier (string IdCuisinier)
+        {
+            this.IdCuisinier = IdCuisinier;
+        }
+        public Cuisinier() { }
 
     }
 }
