@@ -20,6 +20,7 @@ namespace LienC_Sql
         
         static void Main(string[] args)
         {
+            bool flag = true;
             Console.WriteLine("Bienvenue sur Liv'in Paris!");
             Console.WriteLine("1-Nouveau? Inscrivez-vous! (Ajouter un utilisateur/client/cuisinier dans la BDD) ");
             Console.WriteLine("2-Connectez-vous.   (Afficher/modifier les informations d'un client/cuisinier, supprimer un client/cuisinier) ");
@@ -58,7 +59,9 @@ namespace LienC_Sql
                         Console.WriteLine("2-Liste des clients par rue");
                         Console.WriteLine("3-Liste des clients par achat cumulés");
                         Console.WriteLine("4-Liste des cuisiniers par ordre alphabétique");
-                        Console.WriteLine("5-Quittez la page");
+                        Console.WriteLine("5-Moyenne des prix des commandes");
+                        Console.WriteLine("6-Connaitre les nationalités des plats réservés par chaque client");
+                        Console.WriteLine("7-Quittez la page");
                         int v = Convert.ToInt32(Console.ReadLine());
                         switch (v)
                         {
@@ -75,6 +78,12 @@ namespace LienC_Sql
                                 CookerAlphabeticOrder();
                                 break;
                             case 5:
+                                MoyennePrixCommande();
+                                break;
+                            case 6:
+                                MoyennePrixCommande();
+                                break;
+                            case 7:
                                 Console.WriteLine("A bientôt!");
                                 flag1 = false;
                                 break;
@@ -995,7 +1004,54 @@ namespace LienC_Sql
 
         }
 
+        static void MoyennePrixCommande()
+        {
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+            string Requete = "SELECT IdClient, Nationalité FROM commande com JOIN constituer_de_ cd ON com.IdCommande=cd.IdCommande JOIN Plat p ON cd.Id_Plat=p.Id_Plat ORDER BY IdClient ASC; ";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            MySqlDataReader reader = Command.ExecuteReader();
+            Console.WriteLine("Voici la liste des clients en fonction des nationalités des plats qu'ils ont commandé:");
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            reader.Close();
+            Command.Dispose();
+        }
 
+        static void CommandeNationalitePlat(string idC)
+        {
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+            string Requete = "SELECT AVG(prix) as MoyennePrixCommande FROM Commande com JOIN constituer_de_ cd ON com.IdCommande=cd.IdCommande JOIN Plat p ON cd.Id_Plat = p.Id_Plat ORDER BY MoyennePrixCommande ASC;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            MySqlDataReader reader = Command.ExecuteReader();
+            Console.WriteLine("Voici la moyenne des prix des commandes:");
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            reader.Close();
+            Command.Dispose();
+
+        }
         static List<Client> GetListClientsFromCSV()
         {
             List<Client> Liste = new List<Client>();
