@@ -3,14 +3,15 @@ using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualBasic.FileIO;
 
 
 namespace GrapheAssociation
 {
     internal class Program
     {
-
         
+
 
         static void Main(string[] args)
         {
@@ -18,11 +19,18 @@ namespace GrapheAssociation
 
             string chemin = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             string filePath = Path.Combine(chemin, @"soc-karate.mtx");
-            List<int[]> listeAssociations = LireFichierMTX(filePath);
-            int numNoeuds = GetNombreNoeuds(filePath) + 1;
+            List<Dictionary<string, object>> listeStations = new List<Dictionary<string, object>>();
+            
+            listeStations = LireFichierCSV(filePath);
+            List<int> listeSommets = GetSommets(listeStations);
+            int numSommets = listeSommets.Count;
 
-            Graphe graphe = new Graphe(numNoeuds);
+            //List<int[]> listeAssociations = LireFichierMTX(filePath);
+            //int numNoeuds = GetNombreNoeuds(filePath) + 1;
 
+            //Graphe graphe = new Graphe(numNoeuds);
+            Graphe graphe = new Graphe(numSommets);
+            /*
             for (int i = 0; i < numNoeuds; i++)
             {
                 graphe.AjouterNoeud(i);
@@ -30,7 +38,23 @@ namespace GrapheAssociation
             for (int i = 0; i < listeAssociations.Count; i++)
             {
                 graphe.AjouterLien(listeAssociations[i][0], listeAssociations[i][1]);
+            }*/
+
+            foreach (int idSommet in listeSommets)
+            {
+                graphe.AjouterNoeud(idSommet);
             }
+
+            for (int i = 0; i < listeStations.Count; i++)
+            {
+                if ((int)listeStations[i]["idP"] != 0)
+                {
+                    graphe.AjouterLien((int)listeStations[i]["idP"], (int)listeStations[i]["id"]);
+                }
+            }
+
+
+
             graphe.AfficherListeAdjacence();
             Console.WriteLine("\n\n\n");
             graphe.ConstruireMatriceAdjacence();
@@ -46,6 +70,68 @@ namespace GrapheAssociation
             FileStream file = File.Open(filePath, FileMode.Open, FileAccess.Write, FileShare.None);
             Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
         }
+
+        static List<Dictionary<string, object>> LireFichierCSV(string filePath)
+        {
+            List<Dictionary<string, object>> listeStations = new List<Dictionary<string, object>>();
+            using (TextFieldParser parser = new TextFieldParser(filePath))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                while (!parser.EndOfData)
+                {
+                    string[] fields = parser.ReadFields();
+                    foreach (string field in fields)
+                    {
+                        String[] elements = field.Split(';');
+
+                        if (elements[0] != "")
+                        {
+                            int idStation = Convert.ToInt32(elements[0]);
+                            while (listeStations.Count <= idStation)
+                            {
+                                listeStations.Add(new Dictionary<string, object>());
+                                listeStations[(listeStations.Count) - 1]["id"] = 0;
+                            }
+
+                            listeStations[idStation]["id"] = Convert.ToInt32(elements[0]);
+                            listeStations[idStation]["nom"] = elements[1];
+                            listeStations[idStation]["idP"] = Convert.ToInt32(elements[2]);
+                            listeStations[idStation]["idS"] = Convert.ToInt32(elements[3]);
+                            listeStations[idStation]["tempsStations"] = Convert.ToInt32(elements[4]);
+                            listeStations[idStation]["tempsCorrespondance"] = Convert.ToInt32(elements[5]);
+                            listeStations[idStation]["numMetro"] = Convert.ToInt32(elements[6]);
+                        }
+
+                    }
+                }
+            }
+            for (int i = 0; i < listeStations.Count; i++)
+            {
+                if ((int)listeStations[i]["id"] == 0)
+                {
+                    listeStations.RemoveAt(i);
+                    i--;
+                }
+            }
+
+
+            return listeStations;
+        }
+
+        static List<int> GetSommets(List<Dictionary<string, object>> listeStations)
+        {
+            List<int> allStationID = new List<int>();
+            for (int i = 0; i < listeStations.Count; i++)
+            {
+                if ((int)listeStations[i]["id"] != 0 && allStationID.Contains((int)listeStations[i]["id"]) == false)
+                {
+                    allStationID.Add((int)listeStations[i]["id"]);
+                }
+            }
+            return allStationID;
+        }
+
         /// <summary>
         /// Cette fonction transforme le fichier MTX fourni en tableau de tableau de int.
         /// </summary>
