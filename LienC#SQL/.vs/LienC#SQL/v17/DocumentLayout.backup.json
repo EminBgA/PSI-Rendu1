@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\cuisinier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|solutionrelative:cuisinier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|solutionrelative:class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|solutionrelative:client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A227F080-7B0C-4E69-AE6D-DA800C8BDE73}|..\\GrapheAssociation - Copie\\GrapheAssociation.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\grapheassociation - copie\\graphe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A227F080-7B0C-4E69-AE6D-DA800C8BDE73}|..\\GrapheAssociation - Copie\\GrapheAssociation.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\grapheassociation - copie\\lien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A227F080-7B0C-4E69-AE6D-DA800C8BDE73}|..\\GrapheAssociation - Copie\\GrapheAssociation.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\grapheassociation - copie\\grapheassociation.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A227F080-7B0C-4E69-AE6D-DA800C8BDE73}|..\\GrapheAssociation - Copie\\GrapheAssociation.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\grapheassociation - copie\\grapheassociation.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{536D5BF7-7171-481D-A769-80C321E78CF4}|LienC#Sql.csproj|c:\\users\\cyril\\onedrive\\bureau\\projet psi\\psi-rendu1\\lienc#sql\\utilisateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,18 +61,18 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 344,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 343,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAC0EAAAAAAAAAAAcwDQEAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAPYDAAAAAAAAAAAywDQEAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-23T21:10:48.907Z",
               "IsPinned": true,
@@ -64,16 +80,17 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Cuisinier.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Cuisinier.cs",
               "RelativeDocumentMoniker": "Cuisinier.cs",
               "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Cuisinier.cs",
               "RelativeToolTip": "Cuisinier.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T21:10:50.694Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -83,14 +100,15 @@
               "RelativeDocumentMoniker": "Client.cs",
               "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Client.cs",
               "RelativeToolTip": "Client.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwBAAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-23T22:01:47.501Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "utilisateur.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\utilisateur.cs",
               "RelativeDocumentMoniker": "utilisateur.cs",
@@ -99,7 +117,8 @@
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-24T21:15:21.462Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -107,7 +126,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
+              "Title": "Lien.cs",
+              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\Lien.cs",
+              "RelativeDocumentMoniker": "..\\GrapheAssociation - Copie\\Lien.cs",
+              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\Lien.cs",
+              "RelativeToolTip": "..\\GrapheAssociation - Copie\\Lien.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T10:39:35.76Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Class1.cs",
+              "RelativeDocumentMoniker": "Class1.cs",
+              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Class1.cs",
+              "RelativeToolTip": "Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T10:38:56.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Graphe.cs",
+              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\Graphe.cs",
+              "RelativeDocumentMoniker": "..\\GrapheAssociation - Copie\\Graphe.cs",
+              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\Graphe.cs",
+              "RelativeToolTip": "..\\GrapheAssociation - Copie\\Graphe.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T10:38:07.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GrapheAssociation",
+              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "RelativeDocumentMoniker": "..\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "RelativeToolTip": "..\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-03T10:37:58.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "constituer_de.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\constituer_de.cs",
               "RelativeDocumentMoniker": "constituer_de.cs",
@@ -115,11 +186,12 @@
               "RelativeToolTip": "constituer_de.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T21:14:14.6Z"
+              "WhenOpened": "2025-03-24T21:14:14.6Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "livrer.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\livrer.cs",
               "RelativeDocumentMoniker": "livrer.cs",
@@ -127,11 +199,12 @@
               "RelativeToolTip": "livrer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T21:13:59.335Z"
+              "WhenOpened": "2025-03-24T21:13:59.335Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "evaluer.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\evaluer.cs",
               "RelativeDocumentMoniker": "evaluer.cs",
@@ -139,11 +212,12 @@
               "RelativeToolTip": "evaluer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T21:13:43.021Z"
+              "WhenOpened": "2025-03-24T21:13:43.021Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "Commande.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Commande.cs",
               "RelativeDocumentMoniker": "Commande.cs",
@@ -151,11 +225,12 @@
               "RelativeToolTip": "Commande.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T21:13:08.915Z"
+              "WhenOpened": "2025-03-24T21:13:08.915Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Plat.cs",
               "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\LienC#SQL\\Plat.cs",
               "RelativeDocumentMoniker": "Plat.cs",
@@ -163,14 +238,27 @@
               "RelativeToolTip": "Plat.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T21:11:43.58Z"
+              "WhenOpened": "2025-03-24T21:11:43.58Z",
+              "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 56,
-          "SelectedChildIndex": -1,
+          "DockedWidth": 57,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GrapheAssociation",
+              "DocumentMoniker": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "RelativeDocumentMoniker": "..\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "ToolTip": "C:\\Users\\cyril\\OneDrive\\Bureau\\projet PSI\\PSI-Rendu1\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "RelativeToolTip": "..\\GrapheAssociation - Copie\\GrapheAssociation.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-03T10:33:42.429Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"

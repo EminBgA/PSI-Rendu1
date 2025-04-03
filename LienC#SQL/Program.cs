@@ -12,9 +12,9 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Tls.Crypto.Impl.BC;
+using GrapheAssociation;
 
-
-namespace LienC_Sql
+namespace GrapheAssociation
 {
     internal class Program
     {
@@ -1073,6 +1073,10 @@ namespace LienC_Sql
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
             MySqlConnection Connexion = new MySqlConnection(ConnexionString);
             Connexion.Open();
+            GrapheAssociation.Graphe gr = new GrapheAssociation.Graphe(30);
+            
+            //= new GrapheAssociation.Graphe(40);
+            
             // il faut calculer le chemin à suivre ici
             string cheminaSuivre=" ";
             MySqlParameter ParamcheminaSuivre = new MySqlParameter("@chemin", MySqlDbType.VarChar);

@@ -5,7 +5,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LienC_Sql
+namespace GrapheAssociation
 {
     internal class Client
     {
