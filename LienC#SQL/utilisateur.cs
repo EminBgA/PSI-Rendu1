@@ -23,5 +23,8 @@ namespace LienC_Sql
             this.Id_Utilisateur = Id_Utilisateur;
         }
 
+        public Utilisateur()
+        { }
+
     }
 }
