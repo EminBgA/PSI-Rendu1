@@ -13,8 +13,6 @@ namespace GrapheAssociation
     public class Graphe
     {
 
-        
-
         // Ajouter des nœuds
         //private Dictionary<int, Noeud> Noeuds { get; private set; }
         private Noeud[] listeSommets;
@@ -50,7 +48,7 @@ namespace GrapheAssociation
         /// </summary>
         /// <param name="id1"></param>
         /// <param name="id2"></param>
-        public void AjouterLien(int id1, int id2)
+        public void AjouterLien(int id1, int id2, int distance)
         {
             if (listeSommets[id1] != null && listeSommets[id2] != null)
             {
@@ -60,7 +58,7 @@ namespace GrapheAssociation
                 {
                     n1.AjouterVoisin(n2);
                     n2.AjouterVoisin(n1);
-                    listeLiens.Add(new Lien(n1, n2));
+                    listeLiens.Add(new Lien(n1, n2, 6));
                 }
             }
         }

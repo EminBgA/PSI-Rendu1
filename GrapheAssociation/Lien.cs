@@ -10,11 +10,14 @@ namespace GrapheAssociation
     {
         private Noeud noeud1;
         private Noeud noeud2;
+        private int distance;
 
-        public Lien(Noeud n1, Noeud n2)
+
+        public Lien(Noeud n1, Noeud n2, int distance)
         {
             this.noeud1 = n1;
             this.noeud2 = n2;
+            this.distance = distance;   
         }
 
 
