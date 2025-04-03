@@ -37,20 +37,22 @@ namespace GrapheAssociation
         /// Cette fonction créer un nouveau noeud et lui assigne le numéro d'identification passé en argument.
         /// </summary>
         /// <param name="id"></param>
-        public void AjouterNoeud(int id)
+        public void AjouterNoeud(int id, string nom)
         {
+            //Console.WriteLine(id);
             if (listeSommets[id] == null)
             {
-                listeSommets[id] = new Noeud(id);
+                listeSommets[id] = new Noeud(id, nom);
             }
         }
+
 
         /// <summary>
         /// Cette fonction crée un lien entre deux noeuds s'il en existe pas encore un.
         /// </summary>
         /// <param name="id1"></param>
         /// <param name="id2"></param>
-        public void AjouterLien(int id1, int id2, int distance)
+        public void AjouterLien(int id1, int id2, int distance, int tempsChangement, string nomMetro, int numMetro)
         {
             if (listeSommets[id1] != null && listeSommets[id2] != null)
             {
@@ -60,9 +62,39 @@ namespace GrapheAssociation
                 {
                     n1.AjouterVoisin(n2);
                     // Pour un graphe non orienté : n2.AjouterVoisin(n1);
-                    listeLiens.Add(new Lien(n1, n2, distance));
+                    listeLiens.Add(new Lien(n1, n2, distance, tempsChangement, nomMetro, numMetro));
+                }
+                else
+                {
+                    //Console.WriteLine("hello world");
                 }
             }
+        }
+
+        public string NomSommet(int idSommet)
+        {
+            string rep = "";
+            foreach (Noeud sommet in  listeSommets)
+            {
+                if (sommet != null && sommet.GetID() == idSommet)
+                {
+                    rep = sommet.GetNom();
+                }
+            }
+            return rep;
+        }
+
+        public int IDSommet(string nomSommet)
+        {
+            int rep = 0;
+            foreach (Noeud sommet in listeSommets)
+            {
+                if (sommet != null && sommet.GetNom() == nomSommet)
+                {
+                    rep = sommet.GetID();
+                }
+            }
+            return rep;
         }
 
         /// <summary>
@@ -89,7 +121,7 @@ namespace GrapheAssociation
         {
             foreach (var noeud in listeSommets)
             {
-                if (noeud.GetID() != 0)
+                if (noeud != null && noeud.GetID() != 0)
                 {
                    Console.WriteLine(noeud.GetID() + " : " + noeud.VoisinsToString());
                 }
@@ -106,7 +138,10 @@ namespace GrapheAssociation
             {
                 for (int j = 1; j < listeSommets.Length; j++)
                 {
-                    Console.Write(matriceAdjacence[i, j] + " ");
+                    if (matriceAdjacence[i,j] != null)
+                    {
+                        Console.Write(matriceAdjacence[i, j] + " ");
+                    }
                 }
                 Console.WriteLine();
             }
@@ -223,6 +258,7 @@ namespace GrapheAssociation
             bool[] visites = new bool[numSommets];
             List<int> pile = new List<int>();
 
+
             pile.Add(sommetInitial);
 
 
@@ -255,15 +291,32 @@ namespace GrapheAssociation
             return rep;
         }
         
-        public int[] FloydWarshall(int sommetDepart, int sommetArrive)
+        public int CalculerTempsTrajetMetro(Lien[] listeLiens)
+        {
+            int temps = 0;
+            for (int i = 0; i < listeLiens.Length; i++)
+            {
+                temps += listeLiens[i].Distance();
+                if (i >= 1 && listeLiens[i].GetNumMetro() != listeLiens[i - 1].GetNumMetro())
+                {
+                    temps += listeLiens[i].GetTempsChangement();
+                }
+            }
+            return temps;
+        }
+
+
+        public Lien[] FloydWarshall(int sommetDepart, int sommetArrive)
         {
             int maxInt = 1000;
             int[,] distances = new int[numSommets, numSommets];
             int[,] pred = new int[numSommets, numSommets];
+            Lien[,] lienPred = new Lien[numSommets, numSommets]; // Stocke les liens empruntés
+            Lien[,] dernierLienUtilise = new Lien[numSommets, numSommets];
 
-            for (int i = 1; i < numSommets; i++)
+            for (int i = 0; i < numSommets; i++)
             {
-                for (int j = 1; j < numSommets; j++)
+                for (int j = 0; j < numSommets; j++)
                 {
                     if (i == j)
                     {
@@ -272,7 +325,9 @@ namespace GrapheAssociation
                     else
                     {
                         distances[i, j] = maxInt;
-                        pred[i, j] = 0;
+                        pred[i, j] = -1;
+                        lienPred[i, j] = null;
+                        dernierLienUtilise[i, j] = null;
                     }
                 }
             }
@@ -282,61 +337,157 @@ namespace GrapheAssociation
                 int id1 = lien.GetNoeud(1).GetID();
                 int id2 = lien.GetNoeud(2).GetID();
                 distances[id1, id2] = lien.Distance();
-                //distances[id2, id1] = lien.Distance();     // Pour un graphe non orienté
-                pred[id1, id2] = id2;
-                //pred[id2, id1] = id1;   //  Pour un graphe orienté
+                pred[id1, id2] = id1;
+                lienPred[id1, id2] = lien;
+                dernierLienUtilise[id1 , id2] = lien;
             }
 
-            for (int k = 1; k < numSommets; k++)    //   Sommet intermédiaire.
+            for (int k = 0; k < numSommets; k++)
             {
-                for (int i = 1; i < numSommets; i++)       //   Sommet de départ.
+                for (int i = 0; i < numSommets; i++)
                 {
-                    for (int j = 1; j < numSommets; j++)       //   Sommet d'arrivée.
+                    for (int j = 0; j < numSommets; j++)
                     {
-
-                        if (distances[i, k] + distances[k, j] < distances[i, j])
+                        int tempsAttente = 0;
+                        if (dernierLienUtilise[i,k] != null && dernierLienUtilise[k,j] != null && dernierLienUtilise[i,k] != dernierLienUtilise[k,j])
                         {
-                            Console.WriteLine(i + " , " + k + " , " + j);
-                            distances[i,j] = distances[i,k] + distances[k,j];
-                            pred[i, j] = pred[i, k];
+                            tempsAttente += dernierLienUtilise[k, j].GetTempsChangement();
+                        }
+                        
+                        if (distances[i, k] + distances[k, j] + tempsAttente < distances[i, j])
+                        {
+                            distances[i, j] = distances[i, k] + distances[k, j];
+                            pred[i, j] = pred[k, j];
+                            lienPred[i, j] = lienPred[k, j];
+                            dernierLienUtilise[i, j] = dernierLienUtilise[k, j];
                         }
                     }
                 }
             }
 
-            if (pred[sommetDepart, sommetArrive] == 0)
+            if (pred[sommetDepart, sommetArrive] == -1)
             {
                 Console.WriteLine("retourne rien");
-                return new int[0];
+                return new Lien[0];
             }
-            var chemin = new List<int>();
-            int sommet = sommetDepart;
-            while (sommet != sommetArrive)
+
+            var chemin = new List<Lien>();
+            int sommet = sommetArrive;
+            while (sommet != sommetDepart)
             {
-                //Console.WriteLine(sommet);
-                chemin.Add(sommet);
-                sommet = pred[sommet, sommetArrive];
-                if (sommet == 0)
+                Lien lien = lienPred[pred[sommetDepart, sommet], sommet];
+                if (lien == null) return new Lien[0];
+
+                chemin.Add(lien);
+                sommet = pred[sommetDepart, sommet];
+            }
+
+            chemin.Reverse();
+            return chemin.ToArray();
+        }
+
+        public Lien[] FloydWarshall2(int sommetDepart, int sommetArrive)
+        {
+            int maxInt = 1000;
+            int[,] distances = new int[numSommets, numSommets];
+            int[,] pred = new int[numSommets, numSommets];
+            Lien[,] lienPred = new Lien[numSommets, numSommets]; // Stocke les liens empruntés
+            Lien[,] dernierLienUtilise = new Lien[numSommets, numSommets];
+
+            for (int i = 0; i < numSommets; i++)
+            {
+                for (int j = 0; j < numSommets; j++)
                 {
-                    return new int[0];
+                    if (i == j)
+                    {
+                        distances[i, j] = 0;
+                    }
+                    else
+                    {
+                        distances[i, j] = maxInt;
+                        pred[i, j] = -1;
+                        lienPred[i, j] = null;
+                        dernierLienUtilise[i, j] = null;
+                    }
                 }
             }
-            chemin.Add(sommetArrive);
-            //chemin.Reverse();
-            return chemin.ToArray();
 
+            foreach (Lien lien in listeLiens)
+            {
+                int id1 = lien.GetNoeud(1).GetID();
+                int id2 = lien.GetNoeud(2).GetID();
+                distances[id1, id2] = lien.Distance();
+                pred[id1, id2] = id1;
+                lienPred[id1, id2] = lien;
+                dernierLienUtilise[id1, id2] = lien;
+            }
+
+            for (int k = 0; k < numSommets; k++)
+            {
+                for (int i = 0; i < numSommets; i++)
+                {
+                    for (int j = 0; j < numSommets; j++)
+                    {
+                        if (distances[i,k] == maxInt || distances[k, j] == maxInt)
+                        {
+                            continue;
+                        }
+                        
+                        int tempsAttente = 0;
+                        if (dernierLienUtilise[i, k] != null && dernierLienUtilise[k, j] != null && dernierLienUtilise[i, k].GetNumMetro() != dernierLienUtilise[k, j].GetNumMetro())
+                        {
+                            tempsAttente += dernierLienUtilise[k, j].GetTempsChangement();
+                        }
+
+                        if (distances[i, k] + distances[k, j] + tempsAttente < distances[i, j])
+                        {
+                            distances[i, j] = distances[i, k] + distances[k, j] + tempsAttente;
+                            pred[i, j] = k;// pred[k, j];
+                            lienPred[i, j] = lienPred[k, j];
+                            dernierLienUtilise[i, j] = dernierLienUtilise[k, j];
+                        }
+                    }
+                }
+            }
+
+            if (pred[sommetDepart, sommetArrive] == -1)
+            {
+                Console.WriteLine("retourne rien");
+                return new Lien[0];
+            }
+
+            var chemin = new List<Lien>();
+            int sommet = sommetArrive;
+            while (sommet != sommetDepart)
+            {
+                Lien lien = lienPred[pred[sommetDepart, sommet], sommet];
+                if (lien == null) return new Lien[0];
+
+                chemin.Add(lien);
+                sommet = pred[sommetDepart, sommet];
+            }
+
+            chemin.Reverse();
+            return chemin.ToArray();
         }
 
 
-        public int[] BellmanFord(int sommetDepart, int sommetArrive)
+        public Lien[] BellmanFord(int sommetDepart, int sommetArrive)
         {
             var distances = new Dictionary<int, int>();
-            var pred = new Dictionary<int, int>();  
+            var pred = new Dictionary<int, int>();
+            var lienPred = new Dictionary<int, Lien>(); // Stocke le lien utilisé pour atteindre chaque sommet
+            var dernierLienUtilise = new Dictionary<int, Lien>();
 
             foreach (Noeud sommet in listeSommets)
             {
-                distances[sommet.GetID()] = int.MaxValue;
-                pred[sommet.GetID()] = 0;
+                if (sommet != null)
+                {
+                    distances[sommet.GetID()] = int.MaxValue;
+                    pred[sommet.GetID()] = 0;
+                    lienPred[sommet.GetID()] = null;
+                    dernierLienUtilise[sommet.GetID()] = null;
+                }
             }
             distances[sommetDepart] = 0;
 
@@ -346,56 +497,70 @@ namespace GrapheAssociation
                 {
                     int id1 = lien.GetNoeud(1).GetID();
                     int id2 = lien.GetNoeud(2).GetID();
-                    if (distances[id1] != int.MaxValue && distances[id1] + lien.Distance() < distances[id2])
+
+                    int tempsAttente = 0;
+                    if (dernierLienUtilise[id1] != null && dernierLienUtilise[id1].GetNumMetro() != lien.GetNumMetro())
                     {
+                        tempsAttente += lien.GetTempsChangement();// lien.Distance();
+                    }
+
+                    if (distances[id1] != int.MaxValue && distances[id1] + lien.Distance() + tempsAttente < distances[id2])
+                    { 
                         distances[id2] = distances[id1] + lien.Distance();
                         pred[id2] = id1;
-                    }/*   //   Pour un graphe non orienté.
-                    if (distances[id2] != int.MaxValue && distances[id2] + lien.Distance() < distances[id1])
-                    {
-                        distances[id1] = distances[id2] + lien.Distance();
-                        pred[id1] = id2;
-                    }*/
+                        lienPred[id2] = lien; // Stocke le lien emprunté
+                        dernierLienUtilise[id2] = lien;
+                    }
                 }
             }
 
-            if (pred[sommetArrive] == 0)
+            if (lienPred[sommetArrive] == null)
             {
-                return new int[0];
+                Console.WriteLine("retourne rien");
+                return new Lien[0]; // Pas de chemin trouvé
             }
-            var chemin = new List<int>();
+
+            var chemin = new List<Lien>();
             int nsommet = sommetArrive;
-            while (nsommet != 0)
+            while (pred[nsommet] != 0)
             {
-                chemin.Add(nsommet);
+                chemin.Add(lienPred[nsommet]);
                 nsommet = pred[nsommet];
             }
+
             chemin.Reverse();
             return chemin.ToArray();
-
         }
 
-        public int[] Dijkstra(int sommetDepart, int sommetArrive)
+
+        public Lien[] Dijkstra(int sommetDepart, int sommetArrive)
         {
             var distances = new Dictionary<int, int>();
             var pred = new Dictionary<int, int>();
+            var lienPred = new Dictionary<int, Lien>(); // Associe chaque sommet à son lien prédécesseur
+            var dernierLienUtilise = new Dictionary<int, Lien>(); // Pour déterminer si il y a des changements de métro.
             var nonVisites = new List<int>();
 
-            
             foreach (Noeud sommet in listeSommets)
             {
-                distances[sommet.GetID()] = int.MaxValue;
-                pred[sommet.GetID()] = 0;
-                nonVisites.Add(sommet.GetID());
+                if (sommet != null)
+                {
+                    distances[sommet.GetID()] = int.MaxValue;
+                    pred[sommet.GetID()] = 0;
+                    lienPred[sommet.GetID()] = null;
+                    dernierLienUtilise[sommet.GetID()] = null;
+                    nonVisites.Add(sommet.GetID());
+                }
             }
             distances[sommetDepart] = 0;
 
             while (nonVisites.Count > 0)
             {
-                int sommetDepartActuel = 1;
+                int sommetDepartActuel = -1;
                 int minDistance = int.MaxValue;
 
-                foreach (int sommetID in nonVisites)   // Trouver sommet avec plus petit distance.
+                // Trouver le sommet avec la plus petite distance
+                foreach (int sommetID in nonVisites)
                 {
                     if (distances[sommetID] < minDistance)
                     {
@@ -403,75 +568,73 @@ namespace GrapheAssociation
                         sommetDepartActuel = sommetID;
                     }
                 }
+
+                if (sommetDepartActuel == -1)
+                    break; // Aucun sommet atteignable
+
                 nonVisites.Remove(sommetDepartActuel);
 
-                if (sommetDepartActuel == sommetArrive)      
-                {
+                if (sommetDepartActuel == sommetArrive)
                     break;
-                }
 
+                // Trouver le sommet actuel
                 Noeud sommetActuel = null;
-                foreach (var sommet in listeSommets)     // On assigne la réf du sommet avec son ID.
+                foreach (var sommet in listeSommets)
                 {
-                    if (sommet.GetID() == sommetDepartActuel)
+                    if (sommet != null && sommet.GetID() == sommetDepartActuel)
                     {
                         sommetActuel = sommet;
                         break;
                     }
                 }
-                if (sommetActuel == null)     // Si l'ID n'est assigné à aucun sommet.
-                {
-                    continue;
-                }
+                if (sommetActuel == null) continue;
 
-
+                // Explorer les voisins
                 foreach (Noeud voisin in sommetActuel.GetVoisins())
                 {
                     int sommetID = voisin.GetID();
                     Lien lien = null;
+
+                    // Trouver le lien correspondant
                     foreach (var l in listeLiens)
                     {
-                        //Console.WriteLine(l.GetNoeud(1).GetID() + ", " + l.GetNoeud(2).GetID());
-                        if ((l.GetNoeud(1).GetID() == sommetDepartActuel && l.GetNoeud(2).GetID() == sommetID))// Pour un graphe orienté :  || (l.GetNoeud(2).GetID() == sommetDepartActuel && l.GetNoeud(1).GetID() == sommetID))
+                        if (l.GetNoeud(1).GetID() == sommetDepartActuel && l.GetNoeud(2).GetID() == sommetID)
                         {
                             lien = l;
                             break;
                         }
-                        
                     }
-                    if (lien == null)
-                    {
-                        continue;
-                    }
+                    if (lien == null) continue;
 
-                    int nouvelleDistance = distances[sommetDepartActuel] + lien.Distance();
-                    if (nouvelleDistance < distances[voisin.GetID()])
+                    int tempsAttente = 0;
+                    
+                    if (dernierLienUtilise[sommetActuel.GetID()] != null && dernierLienUtilise[sommetActuel.GetID()].GetNumMetro() != lien.GetNumMetro())
                     {
-                        distances[voisin.GetID()] = nouvelleDistance;
-                        pred[voisin.GetID()] = sommetDepartActuel;
+                        tempsAttente += lien.GetTempsChangement();// lien.Distance();
                     }
-
+                    int nouvelleDistance = distances[sommetDepartActuel] + lien.Distance() + tempsAttente;
+                    if (nouvelleDistance < distances[sommetID])
+                    {
+                        distances[sommetID] = nouvelleDistance;
+                        pred[sommetID] = sommetDepartActuel;
+                        lienPred[sommetID] = lien; // Stocker le lien emprunté
+                        dernierLienUtilise[sommetID] = lien;
+                    }
                 }
-
-
-            }
-            Console.WriteLine("Pred sommet arivée : " + pred[sommetArrive]);
-            if (pred[sommetArrive] == 0)
-            {
-                return new int[0]; // Pas de chemin trouvé
             }
 
-            var chemin = new List<int>();
+            if (lienPred[sommetArrive] == null)
+                return new Lien[0]; // Pas de chemin trouvé
+
+            var chemin = new List<Lien>();
             int nSommet = sommetArrive;
-            while (nSommet != 0)
+            while (pred[nSommet] != 0)
             {
-                chemin.Add(nSommet);
+                chemin.Add(lienPred[nSommet]);
                 nSommet = pred[nSommet];
             }
             chemin.Reverse();
             return chemin.ToArray();
-
-
         }
 
 
@@ -484,14 +647,14 @@ namespace GrapheAssociation
         /// Cette fonction crée et dessine le graphe.
         /// </summary>
         /// <param name="filename"></param>
-        public void DessinerGraphe(string filename)
+        public void DessinerGraphe(string filename, Dictionary<string, Dictionary<string, object>> listeGares)
         {
             // Taille de l'image
-            int width = 2000;
-            int height = 2000;
+            int width = 5000;
+            int height = 5000;
             
             // Calcul de la position de chaque sommet sur le graphe
-            positions = CalculerPosition(width, height);
+            positions = CalculerPosition3(width, height, listeGares);
 
             // Création du canvas pour le graphe
             using (var bitmap = new SKBitmap(width, height))
@@ -506,13 +669,17 @@ namespace GrapheAssociation
                 // Début : dessin des arrêtes
                 for (int i = 1; i < listeSommets.Length; i++)  // On accède à chaque sommet.
                 {
-                    for (int j = 0; j < listeSommets[i].GetVoisins().Count; j++)   // Ajout de chaque arrête.
+                    if (listeSommets[i] != null)
                     {
-                        if (listeSommets[i].GetID() < listeSommets[i].GetVoisins()[j].GetID())  // Vérification qu'une arête n'est pas déjà dessiné
+                        for (int j = 0; j < listeSommets[i].GetVoisins().Count; j++)   // Ajout de chaque arrête.
                         {
-                            canvas.DrawLine(positions[listeSommets[i].GetID()], positions[listeSommets[i].GetVoisins()[j].GetID()], paintEdge);
+                            if (listeSommets[i].GetID() < listeSommets[i].GetVoisins()[j].GetID())  // Vérification qu'une arête n'est pas déjà dessiné
+                            {
+                                canvas.DrawLine(positions[listeSommets[i].GetID()], positions[listeSommets[i].GetVoisins()[j].GetID()], paintEdge);
+                            }
                         }
                     }
+                    
 
                 }// Fin
 
@@ -520,7 +687,7 @@ namespace GrapheAssociation
                 foreach (var node in positions)
                 {
                     SKPoint pos = node.Value;
-                    canvas.DrawCircle(pos, 40, paintNode);  // Dessin d'un cercle
+                    canvas.DrawCircle(pos, 20, paintNode);  // Dessin d'un cercle
                     canvas.DrawText(node.Key.ToString(), pos.X - 12, pos.Y + 7, paintText); // Ajout de l'ID du sommet
                 }// Fin
 
@@ -541,7 +708,7 @@ namespace GrapheAssociation
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public Dictionary<int, SKPoint> CalculerPosition(int width, int height)
+        public Dictionary<int, SKPoint> CalculerPosition2(int width, int height, Dictionary<string, Dictionary<string, object>> listeGares)
         {
             Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
             int n = numSommets + 1;
@@ -552,15 +719,103 @@ namespace GrapheAssociation
             // Calcul des coord de chaque sommet
             for (int i = 1; i < listeSommets.Length; i++)
             {
-                int sommet = listeSommets[i].GetID();
-                float x = centerX + (float)(radius * Math.Cos(i * angleStep)); // Calcul de position X
-                float y = centerY + (float)(radius * Math.Sin(i * angleStep)); // Calcul de poistion Y
-                positions[sommet] = new SKPoint(x, y);
+                if (listeSommets[i] != null)
+                {
+                    int sommet = listeSommets[i].GetID();
+                    float x = centerX + (float)(radius * Math.Cos(i * angleStep)); // Calcul de position X
+                    float y = centerY + (float)(radius * Math.Sin(i * angleStep)); // Calcul de poistion Y
+                    positions[sommet] = new SKPoint(x, y);
+                }
+                
             } 
             return positions;  // Retourne la position de chaque sommet
         }
+        public Dictionary<int, SKPoint> CalculerPosition3(int width, int height, Dictionary<string, Dictionary<string, object>> listeGares)
+        {
+            Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
 
-        
+            float minLat = float.MaxValue;
+            float maxLat = float.MinValue;
+            float minLon = float.MaxValue;
+            float maxLon = float.MinValue;
+
+            foreach (string nomGare in listeGares.Keys)
+            {
+                double lat2 = (double)listeGares[nomGare]["lat"];
+                float lat = (float)lat2;
+                double lon2 = (double)listeGares[nomGare]["lon"];
+                float lon = (float)lon2;
+                if (lat < minLat) minLat = lat;
+                if (lat > maxLat) maxLat = lat;
+                if (lon < minLon) minLon = lon;
+                if (lon > maxLon) maxLon = lon;
+            }
+
+            float scaleX = (width - 100) / (maxLon - minLon);
+            float scaleY = (height - 100) / (maxLat - minLat);
+            float scale = Math.Min(scaleX, scaleY);
+
+            float offsetX = (width - (maxLon - minLon) * scaleX) / 2;
+            float offsetY = (height - (maxLat - minLat) * scaleY) / 2;
+
+            foreach(string nomGare in listeGares.Keys)
+            {
+                int id = IDSommet(nomGare);
+                double x2 = ((double)listeGares[nomGare]["lon"] - minLon) * scaleX + 0;
+                float x = (float )x2;
+                double y2 = height - ((double)listeGares[nomGare]["lat"] - minLat) * scaleY + 0;
+                float y = (float )y2;
+                positions[id] = new SKPoint(x, y);
+            }
+
+            return positions;
+
+        }
+        public Dictionary<int, SKPoint> CalculerPosition(int width, int height, Dictionary<string, Dictionary<string, object>> listeGares)
+        {
+            Dictionary<int, SKPoint> positions = new Dictionary<int, SKPoint>();
+
+            // Récupérer les valeurs min/max de latitude et longitude
+            double minLat = double.MaxValue, maxLat = double.MinValue;
+            double minLon = double.MaxValue, maxLon = double.MinValue;
+
+            foreach (string nomGare in listeGares.Keys)
+            {
+                if (nomGare != null)
+                {
+                    double lat = (double)listeGares[nomGare]["lat"];
+                    double lon = (double)listeGares[nomGare]["lon"];
+                    minLat = Math.Min(minLat, lat);
+                    maxLat = Math.Max(maxLat, lat);
+                    minLon = Math.Min(minLon, lon);
+                    maxLon = Math.Max(maxLon, lon);
+                }
+            }
+
+            // Calcul du ratio pour conserver le bon rapport d’aspect
+            double scaleX = (width - 100) / (maxLon - minLon);
+            double scaleY = (height - 100) / (maxLat - minLat);
+            double scale = Math.Min(scaleX, scaleY); // Prendre le plus petit pour éviter une distorsion
+
+            // Centrage des sommets
+            double offsetX = (width - (maxLon - minLon) * scale) / 2;
+            double offsetY = (height - (maxLat - minLat) * scale) / 2;
+
+            foreach (string nomGare in listeGares.Keys)
+            {
+                if (nomGare != null)
+                {
+                    int id = IDSommet(nomGare);
+                    double x = ((double)listeGares[nomGare]["lon"] - minLon) * scale + offsetX;
+                    double y = height - (((double)listeGares[nomGare]["lat"] - minLat) * scale + offsetY); // Inversion de l’axe Y
+                    positions[id] = new SKPoint((float)x, (float)y);
+                }
+            }
+
+            return positions;
+        }
+
+
 
 
     }

@@ -44,14 +44,3 @@ C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\
 C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\obj\Debug\net8.0\LienC#Sql.csproj.AssemblyReference.cache
 C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\obj\Debug\net8.0\LienC#Sql.csproj.Up2Date
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\GrapheAssociation.deps.json
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\GrapheAssociation.runtimeconfig.json
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\GrapheAssociation.exe
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\SkiaSharp.dll
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\SkiaSharp.Views.Desktop.Common.dll
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\runtimes\osx\native\libSkiaSharp.dylib
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\runtimes\win-arm64\native\libSkiaSharp.dll
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\runtimes\win-x64\native\libSkiaSharp.dll
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\runtimes\win-x86\native\libSkiaSharp.dll
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\GrapheAssociation.dll
-C:\Users\cyril\OneDrive\Bureau\projet PSI\PSI-Rendu1\LienC#Sql\bin\Debug\net8.0\GrapheAssociation.pdb

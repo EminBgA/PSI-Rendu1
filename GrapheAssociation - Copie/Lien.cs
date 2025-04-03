@@ -11,12 +11,18 @@ namespace GrapheAssociation
         private Noeud noeud1;
         private Noeud noeud2;
         private int distance;
+        private int tempsChangement;
+        private string nomMetro;
+        private int numMetro;
 
-        public Lien(Noeud n1, Noeud n2, int distance)
+        public Lien(Noeud n1, Noeud n2, int distance, int tempsChangement, string nomMetro, int numMetro)
         {
             this.noeud1 = n1;
             this.noeud2 = n2;
             this.distance = distance;
+            this.tempsChangement = tempsChangement;
+            this.nomMetro = nomMetro;
+            this.numMetro = numMetro;
         }
 
 
@@ -44,9 +50,24 @@ namespace GrapheAssociation
             return noeud;
         }
 
+        public string GetNomMetro()
+        {
+            return nomMetro;
+        }
+
+        public int GetNumMetro()
+        {
+            return numMetro;
+        }
+
         public int Distance()
         {
             return distance;
+        }
+
+        public int GetTempsChangement()
+        {
+            return tempsChangement;
         }
 
     }

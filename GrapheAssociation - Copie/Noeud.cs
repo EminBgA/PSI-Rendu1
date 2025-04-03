@@ -9,12 +9,14 @@ namespace GrapheAssociation
     public class Noeud
     {
         private int id;
+        private string nom; 
         private List<Noeud> voisins;
 
-        public Noeud(int id)
+        public Noeud(int id, string nom)
         {
             this.id = id;
             voisins = new List<Noeud>();
+            this.nom = nom;
         }
 
         /// <summary>
@@ -36,6 +38,11 @@ namespace GrapheAssociation
         public List<Noeud> GetVoisins()
         {
             return voisins;
+        }
+
+        public string GetNom()
+        {
+            return nom;
         }
 
         /// <summary>
