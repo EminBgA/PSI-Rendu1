@@ -11,18 +11,20 @@ namespace LienC_Sql
         internal string IdCuisinier;
         internal string nomP;
         internal string prenomP;
-        internal string adresseP;
+        internal double latitudeP;
+        internal double longitudeP;
         internal long telephoneP;
         internal string emailP;
         internal string spécialités;
         internal string Id_Utilisateur;
 
-        public Cuisinier(string IdCuisinier, string nomP, string prenomP, string adresseP, long telephoneP, string emailP, string spécialités, string Id_Utilisateur)
+        public Cuisinier(string IdCuisinier, string nomP, string prenomP, double latitudeP, double longitudeP, long telephoneP, string emailP, string spécialités, string Id_Utilisateur)
         {
             this.IdCuisinier = IdCuisinier;
             this.nomP = nomP;
             this.prenomP = prenomP;
-            this.adresseP = adresseP;
+            this.latitudeP = latitudeP;
+            this.longitudeP = latitudeP;
             this.telephoneP = telephoneP;
             this.emailP = emailP;
             this.spécialités = spécialités;
