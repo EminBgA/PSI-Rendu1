@@ -12,9 +12,9 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Tls.Crypto.Impl.BC;
+using GrapheAssociation;
 
-
-namespace LienC_Sql
+namespace GrapheAssociation
 {
     internal class Program
     {
@@ -66,6 +66,7 @@ namespace LienC_Sql
 <<<<<<< Updated upstream
                         Console.WriteLine("5-Moyenne des prix des commandes");
 <<<<<<< HEAD
+<<<<<<< HEAD
                         Console.WriteLine("6-Connaitre les nationalités des plats réservés par chaque client");
                         Console.WriteLine("7-Quittez la page");
 =======
@@ -76,6 +77,11 @@ namespace LienC_Sql
                         Console.WriteLine("7-Mettre à jour la BDD après modification des fichiers CSV");
                         Console.WriteLine("8-Quittez la page");
 >>>>>>> 01be7191adb8d52e8a958be5a0ffe9f221fe983f
+=======
+                        Console.WriteLine("6-Connaitre l'historique des commandes et plat d'un client triés par nationalité du plat");
+                        Console.WriteLine("7-Mettre à jour la BDD après modification des fichiers CSV");
+                        Console.WriteLine("8-Quittez la page");
+>>>>>>> 2ae9622012bddee8b3a13e546a49d525c88d5454
                         int v = Convert.ToInt32(Console.ReadLine());
                         switch (v)
                         {
@@ -100,9 +106,12 @@ namespace LienC_Sql
                                 break;
                             case 7:
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> 2ae9622012bddee8b3a13e546a49d525c88d5454
                                 List<Utilisateur> UtilisateuraAjouté = GetListUtilisateurFromCSV();
                                 List<Client> ClientsaAjouté = GetListClientsFromCSV();
                                 List<Cuisinier> CuisiniersaAjouté = GetListCuisinierFromCSV();
@@ -130,7 +139,10 @@ namespace LienC_Sql
                                 Console.WriteLine("Mise à jour des données effectuées");
                                 break;
                             case 8:
+<<<<<<< HEAD
 >>>>>>> 01be7191adb8d52e8a958be5a0ffe9f221fe983f
+=======
+>>>>>>> 2ae9622012bddee8b3a13e546a49d525c88d5454
                                 Console.WriteLine("A bientôt!");
                                 flag1 = false;
                                 break;
@@ -635,6 +647,7 @@ namespace LienC_Sql
                 IdClient = reader["IdClient"].ToString();
             }
             reader.Close();
+<<<<<<< HEAD
             int PartieNumerique = Convert.ToInt32(IdClient.Substring(2));
             PartieNumerique++;
             string NouveauIdClient = "CL" + PartieNumerique.ToString();
@@ -713,29 +726,43 @@ namespace LienC_Sql
             }
             reader.Close();
             // traitement du CodeC récupéré pour générer un nouveau C672
+=======
+>>>>>>> 2ae9622012bddee8b3a13e546a49d525c88d5454
             int PartieNumerique = Convert.ToInt32(IdClient.Substring(2));
             PartieNumerique++;
             string NouveauIdClient = "CL" + PartieNumerique.ToString();
 
             Console.WriteLine("Vous voulez insérez le client " + NouveauIdClient + " dans la BDD");
-            string createClient = $@"INSERT INTO plateforme.client (idClient, NomC, PrénomC, AdresseC, TelephoneC, EmailC, regimeAlC, Id_Utilisateur)
-                                VALUES ('{NouveauIdClient}', '{item.NomC}', '{item.PrénomC}', '{item.AdresseC}', '{item.TelephoneC}', '{item.EmailC}', '{item.regimeAlC}', '{item.Id_Utilisateur}')";
+
             item.idClient = NouveauIdClient; //on ajoute aussi l'id du client sur C#
 >>>>>>> Stashed changes
 
-            MySqlCommand command = Connexion.CreateCommand();
-            command.CommandText = createClient;
-            try
+            Console.WriteLine(NouveauIdClient);
+            string createClient = @"INSERT INTO plateforme.client (idClient, NomC, PrénomC, LatitudeC, LongitudeC, TelephoneC, EmailC, regimeAlC, Id_Utilisateur)
+                               VALUES (@idClient, @NomC, @PrénomC, @LatitudeC, @LongitudeC, @TelephoneC, @EmailC, @regimeAlC, @Id_Utilisateur)";
+
+            using (MySqlCommand command = new MySqlCommand(createClient, Connexion))
             {
-                command.ExecuteNonQuery();
+                command.Parameters.AddWithValue("@idClient", NouveauIdClient);
+                command.Parameters.AddWithValue("@NomC", item.NomC);
+                command.Parameters.AddWithValue("@PrénomC", item.PrénomC);
+                command.Parameters.AddWithValue("@LatitudeC", item.latitudeC);
+                command.Parameters.AddWithValue("@LongitudeC", item.longitudeC);
+                command.Parameters.AddWithValue("@TelephoneC", item.TelephoneC);
+                command.Parameters.AddWithValue("@EmailC", item.EmailC);
+                command.Parameters.AddWithValue("@regimeAlC", item.regimeAlC);
+                command.Parameters.AddWithValue("@Id_Utilisateur", item.Id_Utilisateur);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (MySqlException e)
+                {
+                    Console.WriteLine("Erreur connexion: " + e.ToString());
+                    Console.ReadLine();
+                }
             }
-            catch (MySqlException e)
-            {
-                Console.WriteLine("Erreur connexion: " + e.ToString());
-                Console.ReadLine();
-                return;
-            }
-            command.Dispose();
         }
         static void InsertCuisinierIntoDB(Cuisinier item)
         {
@@ -850,6 +877,7 @@ namespace LienC_Sql
                 command.Dispose();
             }
             //Méthode menu 2
+<<<<<<< HEAD
         static void UpdateClient(Client client)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
@@ -1453,6 +1481,8 @@ namespace LienC_Sql
 <<<<<<< HEAD
 
         //Méthode menu 2
+=======
+>>>>>>> 2ae9622012bddee8b3a13e546a49d525c88d5454
         static void UpdateClient(Client client)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
@@ -1649,7 +1679,7 @@ namespace LienC_Sql
                         Console.WriteLine("Entrez la nouvelle spécialité :");
                         string newspecialite = Console.ReadLine();
                         MySqlParameter ParamNewspecialite = new MySqlParameter("@newspecialite", MySqlDbType.VarChar);
-                        ParamNewspecialite.Value =newspecialite;
+                        ParamNewspecialite.Value = newspecialite;
 
                         string requete6 = "UPDATE cuisinier SET spécialités = @newspecialite WHERE IDCuisinier = @idC";
                         MySqlCommand Command6 = Connexion.CreateCommand();
@@ -1671,7 +1701,7 @@ namespace LienC_Sql
         }
 
 
-        static void DeleteClient(Client client) 
+        static void DeleteClient(Client client)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
             MySqlConnection Connexion = new MySqlConnection(ConnexionString);
@@ -1686,7 +1716,7 @@ namespace LienC_Sql
             int rowsAffected = Command.ExecuteNonQuery();
             Console.WriteLine("Client" + client.idClient + " supprimé");
         }
-        static void DeleteCuisinier(Cuisinier cuisinier) 
+        static void DeleteCuisinier(Cuisinier cuisinier)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
             MySqlConnection Connexion = new MySqlConnection(ConnexionString);
@@ -1701,7 +1731,7 @@ namespace LienC_Sql
             int rowsAffected = Command.ExecuteNonQuery();
             Console.WriteLine("Cuisinier" + cuisinier.IdCuisinier + " supprimé");
         }
-        static void DeleteUser(Utilisateur utilisateur) 
+        static void DeleteUser(Utilisateur utilisateur)
         {
             string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
             MySqlConnection Connexion = new MySqlConnection(ConnexionString);
@@ -1729,6 +1759,73 @@ namespace LienC_Sql
             Console.WriteLine("Utilisateur" + utilisateur.Id_Utilisateur + " supprimé");
         }
 
+        static void ListeClientLivreParCuisinier(Cuisinier item)
+        {
+            string idC = item.IdCuisinier;
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+            MySqlParameter ParamId = new MySqlParameter("@id", MySqlDbType.VarChar);
+            ParamId.Value = idC;
+            string Requete = "SELECT DISTINCT c.idClient FROM Client c JOIN Commande cmd ON c.idClient = cmd.idClient JOIN Livrer l ON cmd.idCommande = l.IdCommande JOIN Cuisinier cu ON l.IDCuisinier = cu.IDCuisinier WHERE cu.IDCuisinier = @id AND l.Statut = 'livré';";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.Parameters.Add(ParamId);
+            Command.CommandText = Requete;
+            MySqlDataReader reader = Command.ExecuteReader();
+            Console.WriteLine("Voici la liste des clients que le cuisinier a livré");
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            reader.Close();
+            Command.Dispose();
+        }
+
+        static void TrajetaSuivrepourCuisinier(Cuisinier item)
+        {
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+            GrapheAssociation.Graphe gr = new GrapheAssociation.Graphe(30);
+            
+            //= new GrapheAssociation.Graphe(40);
+            
+            // il faut calculer le chemin à suivre ici
+            string cheminaSuivre=" ";
+            MySqlParameter ParamcheminaSuivre = new MySqlParameter("@chemin", MySqlDbType.VarChar);
+            ParamcheminaSuivre.Value = cheminaSuivre;
+            MySqlParameter ParamIdC = new MySqlParameter("@idC", MySqlDbType.VarChar);
+            ParamIdC.Value = item.IdCuisinier;
+            string requetePrel = "UPDATE commande SET CheminOpt = @chemin WHERE IDCuisinier = @idC";
+            MySqlCommand CommandPrel = Connexion.CreateCommand();
+            CommandPrel.CommandText = requetePrel;
+            CommandPrel.Parameters.Add(ParamcheminaSuivre);
+            int rowsAffected1 = CommandPrel.ExecuteNonQuery();
+     
+            string Requete = "SELECT IdCommande, CheminOpt FROM livrer WHERE Statut = 'non livré' AND IdCuisinier = @idC;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            Command.Parameters.Add(ParamIdC);
+            MySqlDataReader reader = Command.ExecuteReader();
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            reader.Close();
+            Command.Dispose();
+        }
         // Méthode menu 3
         static void ClientAlphabeticOrder()
         {
@@ -1754,6 +1851,108 @@ namespace LienC_Sql
             reader.Close();
             Command.Dispose();
         }
+
+        static bool ExistUtilisateur(string idU)
+        {
+            bool flag = true;
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+
+            MySqlParameter ParamIdC = new MySqlParameter("@idC", MySqlDbType.VarChar);
+            ParamIdC.Value = idU;
+
+            string Requete = "Select Id_Utilisateur from Utilisateur WHERE Id_Utilisateur=@idC;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            Command.Parameters.Add(ParamIdC);
+            MySqlDataReader reader = Command.ExecuteReader();
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            if (valueString[0] == null)
+            {
+                flag = false;
+            }
+            reader.Close();
+            Command.Dispose();
+            return flag;
+        }
+
+        static bool ExistClient(string idC)
+        {
+            bool flag = true;
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+
+            MySqlParameter ParamIdC = new MySqlParameter("@idC", MySqlDbType.VarChar);
+            ParamIdC.Value = idC;
+
+            string Requete = "Select IdClient from client WHERE IdClient=@idC;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            Command.Parameters.Add(ParamIdC);
+            MySqlDataReader reader = Command.ExecuteReader();
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            if (valueString[0] == null)
+            {
+                flag = false;
+            }
+            reader.Close();
+            Command.Dispose();
+            return flag;
+        }
+        static bool ExistCuisinier(string idC)
+        {
+            bool flag = true;
+            string ConnexionString = "SERVER=localhost;PORT=3306;DATABASE=plateforme;UID=root;PASSWORD=123";
+            MySqlConnection Connexion = new MySqlConnection(ConnexionString);
+            Connexion.Open();
+
+            MySqlParameter ParamIdC = new MySqlParameter("@idC", MySqlDbType.VarChar);
+            ParamIdC.Value = idC;
+
+            string Requete = "Select IdCuisinier from cuisinier WHERE IdCuisinier=@idC;";
+            MySqlCommand Command = Connexion.CreateCommand();
+            Command.CommandText = Requete;
+            Command.Parameters.Add(ParamIdC);
+            MySqlDataReader reader = Command.ExecuteReader();
+            string[] valueString = new string[reader.FieldCount];
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    valueString[i] = reader.GetValue(i).ToString();
+                    Console.Write(valueString[i] + " , ");
+                }
+                Console.WriteLine();
+            }
+            if (valueString[0] == null)
+            {
+                flag = false;
+            }
+            reader.Close();
+            Command.Dispose();
+            return flag;
+        }
+
         static void SpecificClient(string idC)
         {
             {
@@ -1888,10 +2087,14 @@ namespace LienC_Sql
 
         }
 
+<<<<<<< HEAD
         static void MoyennePrixCommande()
 =======
         static void CommandeNationalitePlat()
 >>>>>>> 01be7191adb8d52e8a958be5a0ffe9f221fe983f
+=======
+        static void CommandeNationalitePlat()
+>>>>>>> 2ae9622012bddee8b3a13e546a49d525c88d5454
         {
             Console.WriteLine("Saisissez l'id d'un client:");
             string idC = Console.ReadLine();
